@@ -51,31 +51,30 @@ public class CalculatorMain extends JFrame {
 	 */
 	public CalculatorMain() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(800, 400, 750, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
-//		contentPane.setLayout(new GridLayout());
 				
 		JLabel label = new JLabel("Cálculadora IMC e Metabolismo Basal Harris-Benedict");
 		label.setForeground(Color.WHITE);
-		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		label.setBounds(203, 20, 186, 14);
 		contentPane.add(label);
-		
-		
+				
+		JPanel painelPeso = new JPanel();
+		painelPeso.setBorder(new EmptyBorder(5, 5, 5, 5));
+		painelPeso.setBackground(Color.DARK_GRAY);
+		painelPeso.setLayout(new GridLayout());
 		
 		JLabel labelWeight = new JLabel("Peso (kg):");
 		labelWeight.setForeground(Color.WHITE);
-		labelWeight.setFont(new Font("Tahoma", Font.PLAIN, 15));
-//		labelWeight.setBounds(23, 100, 91, 14);
-		contentPane.add(labelWeight);
+		labelWeight.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		painelPeso.add(labelWeight);
 		
 		JTextField textFieldWeight = new JTextField(3);
 		textFieldWeight.setBackground(Color.WHITE);
-//		textFieldWeight.setBounds(130, 100, 91, 14);
-//		textFieldWeight.setSize(new Dimension(150, 23));
 		textFieldWeight.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent evt) {
@@ -85,18 +84,22 @@ public class CalculatorMain extends JFrame {
 				}
 			}
 		});
-		contentPane.add(textFieldWeight);
+		painelPeso.add(textFieldWeight);
+		contentPane.add(painelPeso);
+		
+		
+		JPanel painelAltura = new JPanel();
+		painelAltura.setBorder(new EmptyBorder(5, 5, 5, 5));
+		painelAltura.setBackground(Color.DARK_GRAY);
+		painelAltura.setLayout(new GridLayout());
 		
 		JLabel labelHeight = new JLabel("Altura (cm):");
 		labelHeight.setForeground(Color.WHITE);
-		labelHeight.setFont(new Font("Tahoma", Font.PLAIN, 15));
-//		labelHeight.setBounds(23, 100, 91, 14);
-		contentPane.add(labelHeight);
+		labelHeight.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		painelAltura.add(labelHeight);
 		
 		JTextField textFieldHeight = new JTextField();
 		textFieldHeight.setBackground(Color.WHITE);
-//		textFieldHeight.setBounds(130, 100, 91, 14);
-//		textFieldHeight.setSize(new Dimension(150, 23));
 		textFieldHeight.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent evt) {
@@ -106,18 +109,23 @@ public class CalculatorMain extends JFrame {
 				}
 			}
 		});
-		contentPane.add(textFieldHeight);
+		painelAltura.add(textFieldHeight);
+		contentPane.add(painelAltura);
+		
+		
+		JPanel painelIdade = new JPanel();
+		painelIdade.setBorder(new EmptyBorder(5, 5, 5, 5));
+		painelIdade.setBackground(Color.DARK_GRAY);
+		painelIdade.setLayout(new GridLayout());
 		
 		JLabel labelAge = new JLabel("Idade (anos):");
 		labelAge.setForeground(Color.WHITE);
-		labelAge.setFont(new Font("Tahoma", Font.PLAIN, 15));
-//		labelAge.setBounds(23, 100, 91, 14);
-		contentPane.add(labelAge);
+		labelAge.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		painelIdade.add(labelAge);
+
 		
 		JTextField textFieldAge = new JTextField();
 		textFieldAge.setBackground(Color.WHITE);
-//		textFieldAge.setBounds(130, 100, 91, 14);
-//		textFieldAge.setSize(new Dimension(150, 23));
 		textFieldAge.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent evt) {
@@ -127,35 +135,70 @@ public class CalculatorMain extends JFrame {
 				}
 			}
 		});
-		contentPane.add(textFieldAge);
+		painelIdade.add(textFieldAge);
+		contentPane.add(painelIdade);
+		
+		JPanel painelSexo = new JPanel();
+		painelSexo.setBorder(new EmptyBorder(5, 5, 5, 5));
+		painelSexo.setBackground(Color.DARK_GRAY);
+		painelSexo.setLayout(new GridLayout());
 		
 		JLabel labelSex = new JLabel("Sexo:");
 		labelSex.setForeground(Color.WHITE);
-		labelSex.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		labelSex.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		labelSex.setBounds(320, 180, 91, 14);
-		contentPane.add(labelSex);
+		painelSexo.add(labelSex);
 	
 		ButtonGroup buttonGroup = new ButtonGroup();
 	
-		JRadioButton radioButtonMale = new JRadioButton("Homem", false);
+		JRadioButton radioButtonMale = new JRadioButton("Masculino", false);
 		radioButtonMale.setForeground(Color.WHITE);
 		radioButtonMale.setBackground(Color.DARK_GRAY);
+		radioButtonMale.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		radioButtonMale.setBounds(425, 156, 149, 23);
 		
-		JRadioButton radioButtonFemale = new JRadioButton("Mulher", false);
+		JRadioButton radioButtonFemale = new JRadioButton("Feminino", false);
 		radioButtonFemale.setForeground(Color.WHITE);
 		radioButtonFemale.setBackground(Color.DARK_GRAY);
+		radioButtonFemale.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		radioButtonFemale.setBounds(425, 201, 149, 23);
 		
 		buttonGroup.add(radioButtonMale);
 		buttonGroup.add(radioButtonFemale);
 		
-		contentPane.add(radioButtonMale);
-		contentPane.add(radioButtonFemale);
+		painelSexo.add(radioButtonMale);
+		painelSexo.add(radioButtonFemale);
+		contentPane.add(painelSexo);
+		
+		JPanel painelBotoes = new JPanel();
+		painelBotoes.setBorder(new EmptyBorder(5, 5, 5, 5));
+		painelBotoes.setBackground(Color.DARK_GRAY);
+		painelBotoes.setLayout(new BoxLayout(painelBotoes, BoxLayout.Y_AXIS));
+			
+		JPanel painelResultado = new JPanel();
+		painelResultado.setBorder(new EmptyBorder(5, 5, 5, 5));
+		painelResultado.setBackground(Color.DARK_GRAY);
+		painelResultado.setLayout(new BoxLayout(painelResultado, BoxLayout.Y_AXIS));
+		
+		JLabel results = new JLabel("Resultados: ");
+		results.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		results.setForeground(Color.WHITE);
+		painelResultado.add(results);
+		
+		JLabel resultadoImc = new JLabel();
+		painelResultado.add(resultadoImc);
+		
+		JLabel resultadoMetabolismo = new JLabel();
+		resultadoMetabolismo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		resultadoMetabolismo.setForeground(Color.WHITE);
+		painelResultado.add(resultadoMetabolismo);
+		
+		contentPane.add(painelResultado);
 		
 		JButton calcButton = new JButton("Calcular");
+		calcButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		calcButton.addActionListener(new ActionListener() {
-			
+				
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
@@ -163,43 +206,68 @@ public class CalculatorMain extends JFrame {
 					double height = Double.parseDouble(textFieldHeight.getText());
 					double weight = Double.parseDouble(textFieldWeight.getText());
 					int age = Integer.parseInt(textFieldAge.getText());
-				
+														
 					JLabel labelImc = new JLabel(resultadoImc(calcularImc(weight, height)));
 					labelImc.setForeground(Color.WHITE);
-					contentPane.add(labelImc);
-				
+					labelImc.setFont(new Font("Tahoma", Font.PLAIN, 18));
+
+					resultadoImc.setFont(new Font("Tahoma", Font.PLAIN, 18));
+					resultadoImc.setForeground(Color.WHITE);
+					resultadoImc.setText(resultadoImc(calcularImc(weight, height)));
+			
 					if(radioButtonMale.isSelected()) {
-						JLabel labelMetabolismo = new JLabel("Seu metabolismo é: " + String.format("%.2f", calcularMetabolismoBasalMasculino(weight, height, age)));
-						labelMetabolismo.setForeground(Color.WHITE);
-						contentPane.add(labelMetabolismo);
+						resultadoMetabolismo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+						resultadoMetabolismo.setForeground(Color.WHITE);
+						resultadoMetabolismo.setText("Seu metabolismo é: " + String.format("%.2f", calcularMetabolismoBasalMasculino(weight, height, age)));
 					}
 					else if (radioButtonFemale.isSelected()) {
-						JLabel labelMetabolismo = new JLabel("Seu metabolismo é: " + String.format("%.2f", calcularMetabolismoBasalFeminino(weight, height, age)));
-						labelMetabolismo.setForeground(Color.WHITE);
-						contentPane.add(labelMetabolismo);
+						resultadoMetabolismo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+						resultadoMetabolismo.setForeground(Color.WHITE);
+						resultadoMetabolismo.setText("Seu metabolismo é: " + String.format("%.2f", calcularMetabolismoBasalFeminino(weight, height, age)));
+
 					}					
 				} catch (NullPointerException e2) {
 					System.err.println("Erro - Campos vazios");
 					JLabel errorPanel = new JLabel("Erro - Campos vazios");
 					errorPanel.setForeground(Color.WHITE);
+					errorPanel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 					contentPane.add(errorPanel);
 				} catch (ArithmeticException e2) {
 					System.err.println("Erro - Divisão por 0");
 					JLabel errorPanel = new JLabel("Erro - Divisão por 0");
 					errorPanel.setForeground(Color.WHITE);
+					errorPanel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 					contentPane.add(errorPanel);
 				} catch (NumberFormatException e2) {
 					System.out.println("Erro - Entrada inválida - Insira um número");
 					JLabel errorPanel = new JLabel("Erro - Entrada inválida - Insira um número");
 					errorPanel.setForeground(Color.WHITE);
+					errorPanel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 					contentPane.add(errorPanel);
 				}				
 				
 			}
 		});
+
+		contentPane.add(painelResultado);
+		painelBotoes.add(calcButton);
 		
-		contentPane.add(calcButton);
+		JButton botaoLimpar = new JButton("Limpar campos");
+		botaoLimpar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		botaoLimpar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				textFieldAge.setText(null);				
+				textFieldHeight.setText(null);				
+				textFieldWeight.setText(null);
+				resultadoImc.setText(null);
+				resultadoMetabolismo.setText(null);
+			}
+		});
+		painelBotoes.add(botaoLimpar);
 		
+				
 		JButton closeButton = new JButton("Fechar");
 		closeButton.addActionListener(new ActionListener() {
 			@Override
@@ -207,14 +275,12 @@ public class CalculatorMain extends JFrame {
 				System.exit(0);
 			}
 		});
-		contentPane.add(closeButton);
-		
-		JLabel results = new JLabel("Resultados: ");
-		results.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		results.setForeground(Color.WHITE);
-		contentPane.add(results);
-		
-		
+
+		closeButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		painelBotoes.add(closeButton);
+		contentPane.add(painelBotoes);
+	
+
 		setContentPane(contentPane);
 	}
 
