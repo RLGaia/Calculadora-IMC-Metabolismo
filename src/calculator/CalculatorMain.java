@@ -189,8 +189,6 @@ public class CalculatorMain extends JFrame {
 		painelResultado.add(resultadoImc);
 		
 		JLabel resultadoMetabolismo = new JLabel();
-		resultadoMetabolismo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		resultadoMetabolismo.setForeground(Color.WHITE);
 		painelResultado.add(resultadoMetabolismo);
 		
 		contentPane.add(painelResultado);
@@ -207,22 +205,17 @@ public class CalculatorMain extends JFrame {
 					double weight = Double.parseDouble(textFieldWeight.getText());
 					int age = Integer.parseInt(textFieldAge.getText());
 														
-					JLabel labelImc = new JLabel(resultadoImc(calcularImc(weight, height)));
-					labelImc.setForeground(Color.WHITE);
-					labelImc.setFont(new Font("Tahoma", Font.PLAIN, 18));
-
 					resultadoImc.setFont(new Font("Tahoma", Font.PLAIN, 18));
 					resultadoImc.setForeground(Color.WHITE);
 					resultadoImc.setText(resultadoImc(calcularImc(weight, height)));
 			
+					resultadoMetabolismo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+					resultadoMetabolismo.setForeground(Color.WHITE);
+					
 					if(radioButtonMale.isSelected()) {
-						resultadoMetabolismo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-						resultadoMetabolismo.setForeground(Color.WHITE);
 						resultadoMetabolismo.setText("Seu metabolismo é: " + String.format("%.2f", calcularMetabolismoBasalMasculino(weight, height, age)));
 					}
 					else if (radioButtonFemale.isSelected()) {
-						resultadoMetabolismo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-						resultadoMetabolismo.setForeground(Color.WHITE);
 						resultadoMetabolismo.setText("Seu metabolismo é: " + String.format("%.2f", calcularMetabolismoBasalFeminino(weight, height, age)));
 
 					}					
@@ -333,5 +326,3 @@ public class CalculatorMain extends JFrame {
 	}
 		
 }
-
-
