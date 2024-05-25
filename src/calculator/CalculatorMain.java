@@ -265,19 +265,19 @@ public class CalculatorMain extends JFrame {
 
 					if(altura == 0) {
 						textFieldAltura.setText(null);
-						mensagemErro.setText("Campos obrigatórios não preenchidos");
 						resultadoImc.setText("IMC: não calculado");
 						resultadoMetabolismo.setText("Metabolismo: não calculado");
+						mensagemErro.setText("Altura não preenchida");
 					} else if (peso == 0) {
 						textFieldPeso.setText(null);
 						resultadoImc.setText("IMC: não calculado");
 						resultadoMetabolismo.setText("Metabolismo: não calculado");
-						mensagemErro.setText("Campos obrigatórios não preenchidos");					
+						mensagemErro.setText("Peso não preenchido");					
 					} else if (idade == 0) {
 						textFieldIdade.setText(null);
 						resultadoImc.setText("IMC: não calculado");
 						resultadoMetabolismo.setText("Metabolismo: não calculado");
-						mensagemErro.setText("Campos obrigatórios não preenchidos");
+						mensagemErro.setText("Idade não preenchida");
 					} else {
 						resultadoImc.setText(resultadoImc(calcularImc(peso, altura)));
 						
