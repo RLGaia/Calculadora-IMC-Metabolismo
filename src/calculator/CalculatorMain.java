@@ -55,17 +55,18 @@ public class CalculatorMain extends JFrame {
 		setBounds(800, 400, 850, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setBackground(Color.DARK_GRAY);
+		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
 		
 		JLabel labelTitulo = new JLabel("Cálculadora IMC e Metabolismo Basal Harris-Benedict");
-		labelTitulo.setForeground(Color.WHITE);
+		labelTitulo.setForeground(Color.BLACK);
 		labelTitulo.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitulo.setBounds(203, 20, 186, 14);
 		contentPane.add(labelTitulo);
 	
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
+		separator.setBackground(Color.LIGHT_GRAY);
 		contentPane.add(separator);
 		
 		JPanel painelNome = new JPanel();
@@ -169,11 +170,10 @@ public class CalculatorMain extends JFrame {
 		painelIdade.add(textFieldIdade);
 		
 		JLabel labelCamposObrigatorios = new JLabel("(*) Campos obrigatórios");
-		labelCamposObrigatorios.setForeground(Color.RED);
-		labelCamposObrigatorios.setFont(new Font("Arial", Font.PLAIN, 13));
+		labelCamposObrigatorios.setForeground(Color.YELLOW);
+		labelCamposObrigatorios.setFont(new Font("Arial", Font.BOLD, 13));
 		painelIdade.add(labelCamposObrigatorios);
-		
-		
+			
 		JPanel painelSexo = new JPanel();
 		painelSexo.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelSexo.setBackground(Color.DARK_GRAY);
@@ -214,12 +214,13 @@ public class CalculatorMain extends JFrame {
 		
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setForeground(Color.LIGHT_GRAY);
+		separator_2.setBackground(Color.LIGHT_GRAY);
 		contentPane.add(separator_2);
 					
 		JPanel painelResultado = new JPanel();
 		painelResultado.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelResultado.setBackground(Color.DARK_GRAY);
-		painelResultado.setLayout(new BoxLayout(painelResultado, BoxLayout.Y_AXIS));
+		painelResultado.setLayout(new GridLayout(5,0));
 		contentPane.add(painelResultado);
 		
 		JLabel labelResultados = new JLabel("Resultados");
@@ -244,7 +245,7 @@ public class CalculatorMain extends JFrame {
 		
 		JLabel mensagemErro = new JLabel(" ");
 		mensagemErro.setFont(new Font("Arial", Font.PLAIN, 18));
-		mensagemErro.setForeground(Color.RED);
+		mensagemErro.setForeground(Color.YELLOW);
 		painelResultado.add(mensagemErro);
 				
 		JButton botaoCalcular = new JButton("Calcular");
@@ -262,15 +263,32 @@ public class CalculatorMain extends JFrame {
 					double peso = Double.parseDouble(textFieldPeso.getText());
 					int idade = Integer.parseInt(textFieldIdade.getText());
 
-					resultadoImc.setText(resultadoImc(calcularImc(peso, altura)));
-					
-					if(radioButtonMasculino.isSelected()) {
-						resultadoMetabolismo.setText("Metabolismo: " + String.format("%.2f", calcularMetabolismoBasalMasculino(peso, altura, idade)));
+					if(altura == 0) {
+						textFieldAltura.setText(null);
+						mensagemErro.setText("Campos obrigatórios não preenchidos");
+						resultadoImc.setText("IMC: não calculado");
+						resultadoMetabolismo.setText("Metabolismo: não calculado");
+					} else if (peso == 0) {
+						textFieldPeso.setText(null);
+						resultadoImc.setText("IMC: não calculado");
+						resultadoMetabolismo.setText("Metabolismo: não calculado");
+						mensagemErro.setText("Campos obrigatórios não preenchidos");					
+					} else if (idade == 0) {
+						textFieldIdade.setText(null);
+						resultadoImc.setText("IMC: não calculado");
+						resultadoMetabolismo.setText("Metabolismo: não calculado");
+						mensagemErro.setText("Campos obrigatórios não preenchidos");
+					} else {
+						resultadoImc.setText(resultadoImc(calcularImc(peso, altura)));
+						
+						if(radioButtonMasculino.isSelected()) {
+							resultadoMetabolismo.setText("Metabolismo: " + String.format("%.2f", calcularMetabolismoBasalMasculino(peso, altura, idade)));
+						}
+						else if (radioButtonFeminino.isSelected()) {
+							resultadoMetabolismo.setText("Metabolismo: " + String.format("%.2f", calcularMetabolismoBasalFeminino(peso, altura, idade)));					
+						}										
 					}
-					else if (radioButtonFeminino.isSelected()) {
-						resultadoMetabolismo.setText("Metabolismo: " + String.format("%.2f", calcularMetabolismoBasalFeminino(peso, altura, idade)));
-
-					}					
+					
 				} catch (NullPointerException e2) {
 					System.err.println("Erro - Campos vazios - " + e2);
 					mensagemErro.setText("Erro - Campos vazios");
@@ -366,7 +384,7 @@ public class CalculatorMain extends JFrame {
 		}
 	
 	private static double calcularImc(double peso, double altura) {
-		double imc = peso / (Math.pow((altura/100), 2));
+		double imc = peso / Math.pow(altura/100, 2);
 		return imc;
 	}
 
