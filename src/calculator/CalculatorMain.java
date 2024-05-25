@@ -52,18 +52,18 @@ public class CalculatorMain extends JFrame {
 	 */
 	public CalculatorMain() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(800, 400, 750, 450);
+		setBounds(800, 400, 850, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(Color.DARK_GRAY);
-		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
-				
+		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
+		
 		JLabel labelTitulo = new JLabel("Cálculadora IMC e Metabolismo Basal Harris-Benedict");
 		labelTitulo.setForeground(Color.WHITE);
-		labelTitulo.setFont(new Font("Arial", Font.PLAIN, 20));
+		labelTitulo.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitulo.setBounds(203, 20, 186, 14);
 		contentPane.add(labelTitulo);
-		
+	
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
 		contentPane.add(separator);
@@ -71,7 +71,7 @@ public class CalculatorMain extends JFrame {
 		JPanel painelNome = new JPanel();
 		painelNome.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelNome.setBackground(Color.DARK_GRAY);
-		painelNome.setLayout(new GridLayout());
+		painelNome.setLayout(new GridLayout(1,2));
 		contentPane.add(painelNome);
 		
 		JLabel labelNome = new JLabel("Nome (primeiro):");
@@ -96,10 +96,10 @@ public class CalculatorMain extends JFrame {
 		JPanel painelPeso = new JPanel();
 		painelPeso.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelPeso.setBackground(Color.DARK_GRAY);
-		painelPeso.setLayout(new GridLayout());
+		painelPeso.setLayout(new GridLayout(1,2));
 		contentPane.add(painelPeso);
 		
-		JLabel labelPeso = new JLabel("Peso (kg):");
+		JLabel labelPeso = new JLabel("Peso (kg)*:");
 		labelPeso.setForeground(Color.WHITE);
 		labelPeso.setFont(new Font("Arial", Font.PLAIN, 18));
 		painelPeso.add(labelPeso);
@@ -117,14 +117,14 @@ public class CalculatorMain extends JFrame {
 			}
 		});
 		painelPeso.add(textFieldPeso);
-		
+						
 		JPanel painelAltura = new JPanel();
 		painelAltura.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelAltura.setBackground(Color.DARK_GRAY);
-		painelAltura.setLayout(new GridLayout());
+		painelAltura.setLayout(new GridLayout(1,2));
 		contentPane.add(painelAltura);
 		
-		JLabel labelAltura = new JLabel("Altura (cm):");
+		JLabel labelAltura = new JLabel("Altura (cm)*:");
 		labelAltura.setForeground(Color.WHITE);
 		labelAltura.setFont(new Font("Arial", Font.PLAIN, 18));
 		painelAltura.add(labelAltura);
@@ -146,10 +146,10 @@ public class CalculatorMain extends JFrame {
 		JPanel painelIdade = new JPanel();
 		painelIdade.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelIdade.setBackground(Color.DARK_GRAY);
-		painelIdade.setLayout(new GridLayout());
+		painelIdade.setLayout(new GridLayout(2,2));
 		contentPane.add(painelIdade);
 		
-		JLabel labelIdade = new JLabel("Idade (anos):");
+		JLabel labelIdade = new JLabel("Idade (anos)*:");
 		labelIdade.setForeground(Color.WHITE);
 		labelIdade.setFont(new Font("Arial", Font.PLAIN, 18));
 		painelIdade.add(labelIdade);
@@ -168,10 +168,16 @@ public class CalculatorMain extends JFrame {
 		});
 		painelIdade.add(textFieldIdade);
 		
+		JLabel labelCamposObrigatorios = new JLabel("(*) Campos obrigatórios");
+		labelCamposObrigatorios.setForeground(Color.RED);
+		labelCamposObrigatorios.setFont(new Font("Arial", Font.PLAIN, 13));
+		painelIdade.add(labelCamposObrigatorios);
+		
+		
 		JPanel painelSexo = new JPanel();
 		painelSexo.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelSexo.setBackground(Color.DARK_GRAY);
-		painelSexo.setLayout(new GridLayout());
+		painelSexo.setLayout(new GridLayout(1, 2));
 		contentPane.add(painelSexo);
 		
 		JLabel labelSexo = new JLabel("Sexo:");
@@ -182,7 +188,7 @@ public class CalculatorMain extends JFrame {
 	
 		ButtonGroup buttonGroup = new ButtonGroup();
 	
-		JRadioButton radioButtonMasculino = new JRadioButton("Masculino", false);
+		JRadioButton radioButtonMasculino = new JRadioButton("Masculino", true);
 		radioButtonMasculino.setForeground(Color.WHITE);
 		radioButtonMasculino.setBackground(Color.DARK_GRAY);
 		radioButtonMasculino.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -200,44 +206,43 @@ public class CalculatorMain extends JFrame {
 		painelSexo.add(radioButtonMasculino);
 		painelSexo.add(radioButtonFeminino);
 
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setForeground(Color.LIGHT_GRAY);
-		contentPane.add(separator_2);
-		
-		JPanel painelBotoesResultado = new JPanel();
-		painelBotoesResultado.setBorder(new EmptyBorder(5, 5, 5, 5));
-		painelBotoesResultado.setBackground(Color.DARK_GRAY);
-		painelBotoesResultado.setLayout(new GridLayout());
-		contentPane.add(painelBotoesResultado);	
-		
 		JPanel painelBotoes = new JPanel();
 		painelBotoes.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelBotoes.setBackground(Color.DARK_GRAY);
-		painelBotoes.setLayout(new BoxLayout(painelBotoes, BoxLayout.Y_AXIS));
-		painelBotoesResultado.add(painelBotoes);
+		painelBotoes.setLayout(new GridLayout());
+		contentPane.add(painelBotoes);
 		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setForeground(Color.LIGHT_GRAY);
+		contentPane.add(separator_2);
+					
 		JPanel painelResultado = new JPanel();
 		painelResultado.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelResultado.setBackground(Color.DARK_GRAY);
 		painelResultado.setLayout(new BoxLayout(painelResultado, BoxLayout.Y_AXIS));
-		painelBotoesResultado.add(painelResultado);
+		contentPane.add(painelResultado);
 		
 		JLabel labelResultados = new JLabel("Resultados");
-		labelResultados.setFont(new Font("Arial", Font.PLAIN, 20));
+		labelResultados.setFont(new Font("Arial", Font.BOLD, 20));
 		labelResultados.setForeground(Color.WHITE);
 		painelResultado.add(labelResultados);
 		
-		JLabel resultadoImc = new JLabel();
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setBackground(Color.DARK_GRAY);
+		separator_3.setForeground(Color.DARK_GRAY);
+		painelResultado.add(separator_3);
+		
+		JLabel resultadoImc = new JLabel("IMC: não calculado");
 		resultadoImc.setFont(new Font("Arial", Font.PLAIN, 18));
 		resultadoImc.setForeground(Color.WHITE);
 		painelResultado.add(resultadoImc);
 		
-		JLabel resultadoMetabolismo = new JLabel();
+		JLabel resultadoMetabolismo = new JLabel("Metabolismo: não calculado");
 		resultadoMetabolismo.setFont(new Font("Arial", Font.PLAIN, 18));
 		resultadoMetabolismo.setForeground(Color.WHITE);
 		painelResultado.add(resultadoMetabolismo);
 		
-		JLabel mensagemErro = new JLabel();
+		JLabel mensagemErro = new JLabel(" ");
 		mensagemErro.setFont(new Font("Arial", Font.PLAIN, 18));
 		mensagemErro.setForeground(Color.RED);
 		painelResultado.add(mensagemErro);
@@ -251,8 +256,8 @@ public class CalculatorMain extends JFrame {
 				
 				try {
 					
-					mensagemErro.setText(null);
-					
+					mensagemErro.setText(" ");
+
 					double altura = Double.parseDouble(textFieldAltura.getText());
 					double peso = Double.parseDouble(textFieldPeso.getText());
 					int idade = Integer.parseInt(textFieldIdade.getText());
@@ -260,10 +265,10 @@ public class CalculatorMain extends JFrame {
 					resultadoImc.setText(resultadoImc(calcularImc(peso, altura)));
 					
 					if(radioButtonMasculino.isSelected()) {
-						resultadoMetabolismo.setText("Seu metabolismo é: " + String.format("%.2f", calcularMetabolismoBasalMasculino(peso, altura, idade)));
+						resultadoMetabolismo.setText("Metabolismo: " + String.format("%.2f", calcularMetabolismoBasalMasculino(peso, altura, idade)));
 					}
 					else if (radioButtonFeminino.isSelected()) {
-						resultadoMetabolismo.setText("Seu metabolismo é: " + String.format("%.2f", calcularMetabolismoBasalFeminino(peso, altura, idade)));
+						resultadoMetabolismo.setText("Metabolismo: " + String.format("%.2f", calcularMetabolismoBasalFeminino(peso, altura, idade)));
 
 					}					
 				} catch (NullPointerException e2) {
@@ -274,7 +279,7 @@ public class CalculatorMain extends JFrame {
 					mensagemErro.setText("Erro - Divisão por 0");
 				} catch (NumberFormatException e2) {
 					System.err.println("Erro - Entrada inválida - " + e2);
-					mensagemErro.setText("Erro - Entrada inválida - Insira um número");
+					mensagemErro.setText("Campos obrigatórios não preenchidos");
 				}				
 				
 			}
@@ -291,13 +296,46 @@ public class CalculatorMain extends JFrame {
 				textFieldIdade.setText(null);				
 				textFieldAltura.setText(null);				
 				textFieldPeso.setText(null);
-				resultadoImc.setText(null);
-				resultadoMetabolismo.setText(null);
-				mensagemErro.setText(null);
+				resultadoImc.setText("IMC: não calculado");
+				resultadoMetabolismo.setText("Metabolismo: não calculado");
+				mensagemErro.setText(" ");
 			}
 		});
 		painelBotoes.add(botaoLimpar);
 						
+		JSeparator separator_4 = new JSeparator();
+		separator_4.setForeground(Color.LIGHT_GRAY);
+		contentPane.add(separator_4);
+
+		JPanel painelFinal = new JPanel();
+		painelFinal.setBorder(new EmptyBorder(5, 5, 5, 5));
+		painelFinal.setBackground(Color.DARK_GRAY);
+		painelFinal.setLayout(new GridLayout());
+		contentPane.add(painelFinal);
+		
+		JPanel painelIdentificacao = new JPanel();
+		painelIdentificacao.setBorder(new EmptyBorder(5, 5, 5, 5));
+		painelIdentificacao.setBackground(Color.DARK_GRAY);
+		painelIdentificacao.setLayout(new BoxLayout(painelIdentificacao, BoxLayout.Y_AXIS));
+		painelFinal.add(painelIdentificacao);
+		
+		JLabel labelIdentificacao = new JLabel("Ceub - 2024");
+		labelIdentificacao.setForeground(Color.WHITE);
+		labelIdentificacao.setFont(new Font("Arial", Font.PLAIN, 12));
+		painelIdentificacao.add(labelIdentificacao);
+		labelIdentificacao = new JLabel("Programação Orientada a Objetos III");
+		labelIdentificacao.setForeground(Color.WHITE);
+		labelIdentificacao.setFont(new Font("Arial", Font.PLAIN, 12));
+		painelIdentificacao.add(labelIdentificacao);
+		labelIdentificacao = new JLabel("Prof. Romes Heriberto Pires de Araujo");
+		labelIdentificacao.setForeground(Color.WHITE);
+		labelIdentificacao.setFont(new Font("Arial", Font.PLAIN, 12));
+		painelIdentificacao.add(labelIdentificacao);
+		labelIdentificacao = new JLabel("Rodrigo Lobo Gaia da Silva - 72151181");
+		labelIdentificacao.setForeground(Color.WHITE);
+		labelIdentificacao.setFont(new Font("Arial", Font.PLAIN, 12));
+		painelIdentificacao.add(labelIdentificacao);
+		
 		JButton botaoFechar = new JButton("Fechar");
 		botaoFechar.addActionListener(new ActionListener() {
 			@Override
@@ -306,8 +344,8 @@ public class CalculatorMain extends JFrame {
 			}
 		});
 		botaoFechar.setFont(new Font("Arial", Font.PLAIN, 18));
-		painelBotoes.add(botaoFechar);
-
+		painelFinal.add(botaoFechar);
+			
 		setContentPane(contentPane);
 	}
 
@@ -335,17 +373,17 @@ public class CalculatorMain extends JFrame {
 	private static String resultadoImc(double imc) {
 		String imcFormatado = String.format("%.2f", imc);
 		if(imc < 18.5) {
-			return "Seu IMC é: " + imcFormatado + " - Abaixo do peso: IMC menor que 18,5";
+			return "IMC: " + imcFormatado + " - Abaixo do peso: IMC menor que 18,5";
 		} else if (imc >= 18.5 && imc <= 24.9) {
-			return "Seu IMC é: " + imcFormatado + " - Peso normal: IMC entre 18,5 e 24,9";
+			return "IMC: " + imcFormatado + " - Peso normal: IMC entre 18,5 e 24,9";
 		} else if (imc > 25 && imc <= 29.9) {
-			return "Seu IMC é: " + imcFormatado + " - Obesidade grau I: IMC entre 30 e 34,9";
+			return "IMC: " + imcFormatado + " - Obesidade grau I: IMC entre 30 e 34,9";
 		} else if (imc > 30 && imc <= 34.9) {
-			return "Seu IMC é: " + imcFormatado + " - Obesidade grau I: IMC entre 30 e 34,9";		
+			return "IMC: " + imcFormatado + " - Obesidade grau I: IMC entre 30 e 34,9";		
 		} else if (imc > 35 && imc <= 39.9) {
-			return "Seu IMC é: " + imcFormatado + " - Obesidade grau II (severa): IMC entre 35 e 39,9";
+			return "IMC: " + imcFormatado + " - Obesidade grau II (severa): IMC entre 35 e 39,9";
 		} else {
-			return "Seu IMC é: " + imcFormatado + " - Obesidade grau III (mórbida): IMC maior que 40";
+			return "IMC: " + imcFormatado + " - Obesidade grau III (mórbida): IMC maior que 40";
 		}
 	}
 	
