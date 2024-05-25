@@ -17,6 +17,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
@@ -337,22 +339,22 @@ public class CalculatorMain extends JFrame {
 		painelIdentificacao.setLayout(new BoxLayout(painelIdentificacao, BoxLayout.Y_AXIS));
 		painelFinal.add(painelIdentificacao);
 		
-		JLabel labelIdentificacao = new JLabel("Ceub - 2024");
-		labelIdentificacao.setForeground(Color.WHITE);
-		labelIdentificacao.setFont(new Font("Arial", Font.PLAIN, 12));
-		painelIdentificacao.add(labelIdentificacao);
-		labelIdentificacao = new JLabel("Programação Orientada a Objetos III");
-		labelIdentificacao.setForeground(Color.WHITE);
-		labelIdentificacao.setFont(new Font("Arial", Font.PLAIN, 12));
-		painelIdentificacao.add(labelIdentificacao);
-		labelIdentificacao = new JLabel("Prof. Romes Heriberto Pires de Araujo");
-		labelIdentificacao.setForeground(Color.WHITE);
-		labelIdentificacao.setFont(new Font("Arial", Font.PLAIN, 12));
-		painelIdentificacao.add(labelIdentificacao);
-		labelIdentificacao = new JLabel("Rodrigo Lobo Gaia da Silva - 72151181");
-		labelIdentificacao.setForeground(Color.WHITE);
-		labelIdentificacao.setFont(new Font("Arial", Font.PLAIN, 12));
-		painelIdentificacao.add(labelIdentificacao);
+		JLabel labelUniversidade = new JLabel("Ceub - 2024");
+		labelUniversidade.setForeground(Color.WHITE);
+		labelUniversidade.setFont(new Font("Arial", Font.PLAIN, 12));
+		painelIdentificacao.add(labelUniversidade);
+		JLabel labelDisciplina= new JLabel("Programação Orientada a Objetos III");
+		labelDisciplina.setForeground(Color.WHITE);
+		labelDisciplina.setFont(new Font("Arial", Font.PLAIN, 12));
+		painelIdentificacao.add(labelDisciplina);
+		JLabel labelProfessor= new JLabel("Prof. Romes Heriberto Pires de Araujo");
+		labelProfessor.setForeground(Color.WHITE);
+		labelProfessor.setFont(new Font("Arial", Font.PLAIN, 12));
+		painelIdentificacao.add(labelProfessor);
+		JLabel labelAluno= new JLabel("Rodrigo Lobo Gaia da Silva - 72151181");
+		labelAluno.setForeground(Color.WHITE);
+		labelAluno.setFont(new Font("Arial", Font.PLAIN, 12));
+		painelIdentificacao.add(labelAluno);
 		
 		JButton botaoFechar = new JButton("Fechar");
 		botaoFechar.addActionListener(new ActionListener() {
@@ -364,6 +366,111 @@ public class CalculatorMain extends JFrame {
 		botaoFechar.setFont(new Font("Arial", Font.PLAIN, 18));
 		painelFinal.add(botaoFechar);
 			
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu menuTema = new JMenu("Tema");
+		menuBar.add(menuTema);
+		
+		JRadioButtonMenuItem temaEscuro = new JRadioButtonMenuItem("Escuro", true);
+		JRadioButtonMenuItem temaClaro = new JRadioButtonMenuItem("Claro", false);
+		
+		temaEscuro.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				contentPane.setBackground(Color.BLACK);
+				separator.setForeground(Color.LIGHT_GRAY);
+				separator.setBackground(Color.LIGHT_GRAY);
+			}
+		});
+		
+		temaClaro.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				contentPane.setBackground(Color.WHITE);
+				
+				separator.setForeground(Color.LIGHT_GRAY);
+				separator.setBackground(Color.LIGHT_GRAY);
+				
+				painelNome.setBackground(Color.DARK_GRAY);
+				labelNome.setForeground(Color.WHITE);
+				labelNome.setFont(new Font("Arial", Font.PLAIN, 18));
+				textFieldNome.setBackground(Color.WHITE);
+				textFieldNome.setFont(new Font("Arial", Font.PLAIN, 16));
+				
+				painelPeso.setBackground(Color.DARK_GRAY);
+				labelPeso.setForeground(Color.WHITE);
+				labelPeso.setFont(new Font("Arial", Font.PLAIN, 18));
+				textFieldPeso.setBackground(Color.WHITE);
+				textFieldPeso.setFont(new Font("Arial", Font.PLAIN, 18));
+				
+				painelAltura.setBackground(Color.DARK_GRAY);
+				labelAltura.setForeground(Color.WHITE);
+				labelAltura.setFont(new Font("Arial", Font.PLAIN, 18));
+				textFieldAltura.setBackground(Color.WHITE);
+				textFieldAltura.setFont(new Font("Arial", Font.PLAIN, 18));
+				
+				painelIdade.setBackground(Color.DARK_GRAY);
+				labelIdade.setForeground(Color.WHITE);
+				labelIdade.setFont(new Font("Arial", Font.PLAIN, 18));
+				textFieldIdade.setBackground(Color.WHITE);
+				textFieldIdade.setFont(new Font("Arial", Font.PLAIN, 18));
+				
+				labelCamposObrigatorios.setForeground(Color.YELLOW);
+				labelCamposObrigatorios.setFont(new Font("Arial", Font.BOLD, 13));
+				
+				painelSexo.setBackground(Color.DARK_GRAY);
+				labelSexo.setForeground(Color.WHITE);
+				labelSexo.setFont(new Font("Arial", Font.PLAIN, 18));
+				radioButtonMasculino.setForeground(Color.WHITE);
+				radioButtonMasculino.setBackground(Color.DARK_GRAY);
+				radioButtonFeminino.setForeground(Color.WHITE);
+				radioButtonFeminino.setBackground(Color.DARK_GRAY);
+				
+				painelResultado.setBackground(Color.DARK_GRAY);
+				labelResultados.setFont(new Font("Arial", Font.BOLD, 20));
+				labelResultados.setForeground(Color.WHITE);
+				separator_3.setBackground(Color.DARK_GRAY);
+				separator_3.setForeground(Color.DARK_GRAY);
+				resultadoImc.setFont(new Font("Arial", Font.PLAIN, 18));
+				resultadoImc.setForeground(Color.WHITE);
+				resultadoMetabolismo.setFont(new Font("Arial", Font.PLAIN, 18));
+				resultadoMetabolismo.setForeground(Color.WHITE);
+				
+				mensagemErro.setFont(new Font("Arial", Font.PLAIN, 18));
+				mensagemErro.setForeground(Color.YELLOW);
+				
+				separator_4.setForeground(Color.LIGHT_GRAY);
+				painelFinal.setBackground(Color.DARK_GRAY);
+				painelIdentificacao.setBackground(Color.DARK_GRAY);
+
+
+				labelUniversidade.setForeground(Color.WHITE);
+				labelUniversidade.setFont(new Font("Arial", Font.PLAIN, 12));
+
+				labelDisciplina.setForeground(Color.WHITE);
+				labelDisciplina.setFont(new Font("Arial", Font.PLAIN, 12));
+
+				labelProfessor.setForeground(Color.WHITE);
+				labelProfessor.setFont(new Font("Arial", Font.PLAIN, 12));
+
+				labelAluno.setForeground(Color.WHITE);
+				labelAluno.setFont(new Font("Arial", Font.PLAIN, 12));
+								
+			}
+		});
+		
+		ButtonGroup buttonGroupTema = new ButtonGroup();
+		buttonGroupTema.add(temaEscuro);
+		buttonGroupTema.add(temaClaro);
+		
+		menuTema.add(temaEscuro);
+		menuTema.add(temaClaro);
+		
 		setContentPane(contentPane);
 	}
 
