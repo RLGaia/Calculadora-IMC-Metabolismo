@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JWindow;
 import javax.swing.border.EmptyBorder;
@@ -59,9 +60,13 @@ public class CalculatorMain extends JFrame {
 				
 		JLabel labelTitulo = new JLabel("Cálculadora IMC e Metabolismo Basal Harris-Benedict");
 		labelTitulo.setForeground(Color.WHITE);
-		labelTitulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelTitulo.setFont(new Font("Arial", Font.PLAIN, 20));
 		labelTitulo.setBounds(203, 20, 186, 14);
 		contentPane.add(labelTitulo);
+		
+		JSeparator separator = new JSeparator();
+		separator.setForeground(Color.LIGHT_GRAY);
+		contentPane.add(separator);
 		
 		JPanel painelNome = new JPanel();
 		painelNome.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -71,16 +76,17 @@ public class CalculatorMain extends JFrame {
 		
 		JLabel labelNome = new JLabel("Nome (primeiro):");
 		labelNome.setForeground(Color.WHITE);
-		labelNome.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		labelNome.setFont(new Font("Arial", Font.PLAIN, 18));
 		painelNome.add(labelNome);
 		
-		JTextField textFieldNome = new JTextField(3);
+		JTextField textFieldNome = new JTextField(15);
 		textFieldNome.setBackground(Color.WHITE);
+		textFieldNome.setFont(new Font("Arial", Font.PLAIN, 16));
 		textFieldNome.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent evt) {
 				char c = evt.getKeyChar();
-				if (!Character.isAlphabetic(c) || textFieldNome.getText().length() >= 12) {
+				if (!Character.isAlphabetic(c) || textFieldNome.getText().length() >= 15) {
 					evt.consume();
 				}
 			}
@@ -95,11 +101,12 @@ public class CalculatorMain extends JFrame {
 		
 		JLabel labelPeso = new JLabel("Peso (kg):");
 		labelPeso.setForeground(Color.WHITE);
-		labelPeso.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		labelPeso.setFont(new Font("Arial", Font.PLAIN, 18));
 		painelPeso.add(labelPeso);
 		
 		JTextField textFieldPeso = new JTextField(3);
 		textFieldPeso.setBackground(Color.WHITE);
+		textFieldPeso.setFont(new Font("Arial", Font.PLAIN, 18));
 		textFieldPeso.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent evt) {
@@ -119,11 +126,12 @@ public class CalculatorMain extends JFrame {
 		
 		JLabel labelAltura = new JLabel("Altura (cm):");
 		labelAltura.setForeground(Color.WHITE);
-		labelAltura.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		labelAltura.setFont(new Font("Arial", Font.PLAIN, 18));
 		painelAltura.add(labelAltura);
 		
 		JTextField textFieldAltura = new JTextField();
 		textFieldAltura.setBackground(Color.WHITE);
+		textFieldAltura.setFont(new Font("Arial", Font.PLAIN, 18));
 		textFieldAltura.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent evt) {
@@ -143,11 +151,12 @@ public class CalculatorMain extends JFrame {
 		
 		JLabel labelIdade = new JLabel("Idade (anos):");
 		labelIdade.setForeground(Color.WHITE);
-		labelIdade.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		labelIdade.setFont(new Font("Arial", Font.PLAIN, 18));
 		painelIdade.add(labelIdade);
 		
 		JTextField textFieldIdade = new JTextField();
 		textFieldIdade.setBackground(Color.WHITE);
+		textFieldIdade.setFont(new Font("Arial", Font.PLAIN, 18));
 		textFieldIdade.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent evt) {
@@ -167,7 +176,7 @@ public class CalculatorMain extends JFrame {
 		
 		JLabel labelSexo = new JLabel("Sexo:");
 		labelSexo.setForeground(Color.WHITE);
-		labelSexo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		labelSexo.setFont(new Font("Arial", Font.PLAIN, 18));
 		labelSexo.setBounds(320, 180, 91, 14);
 		painelSexo.add(labelSexo);
 	
@@ -176,13 +185,13 @@ public class CalculatorMain extends JFrame {
 		JRadioButton radioButtonMasculino = new JRadioButton("Masculino", false);
 		radioButtonMasculino.setForeground(Color.WHITE);
 		radioButtonMasculino.setBackground(Color.DARK_GRAY);
-		radioButtonMasculino.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		radioButtonMasculino.setFont(new Font("Arial", Font.PLAIN, 18));
 		radioButtonMasculino.setBounds(425, 156, 149, 23);
 		
 		JRadioButton radioButtonFeminino = new JRadioButton("Feminino", false);
 		radioButtonFeminino.setForeground(Color.WHITE);
 		radioButtonFeminino.setBackground(Color.DARK_GRAY);
-		radioButtonFeminino.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		radioButtonFeminino.setFont(new Font("Arial", Font.PLAIN, 18));
 		radioButtonFeminino.setBounds(425, 201, 149, 23);
 		
 		buttonGroup.add(radioButtonMasculino);
@@ -190,6 +199,10 @@ public class CalculatorMain extends JFrame {
 		
 		painelSexo.add(radioButtonMasculino);
 		painelSexo.add(radioButtonFeminino);
+
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setForeground(Color.LIGHT_GRAY);
+		contentPane.add(separator_2);
 		
 		JPanel painelBotoesResultado = new JPanel();
 		painelBotoesResultado.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -209,28 +222,28 @@ public class CalculatorMain extends JFrame {
 		painelResultado.setLayout(new BoxLayout(painelResultado, BoxLayout.Y_AXIS));
 		painelBotoesResultado.add(painelResultado);
 		
-		JLabel labelResultados = new JLabel("Resultados: ");
-		labelResultados.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		JLabel labelResultados = new JLabel("Resultados");
+		labelResultados.setFont(new Font("Arial", Font.PLAIN, 20));
 		labelResultados.setForeground(Color.WHITE);
 		painelResultado.add(labelResultados);
 		
 		JLabel resultadoImc = new JLabel();
-		resultadoImc.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		resultadoImc.setFont(new Font("Arial", Font.PLAIN, 18));
 		resultadoImc.setForeground(Color.WHITE);
 		painelResultado.add(resultadoImc);
 		
 		JLabel resultadoMetabolismo = new JLabel();
-		resultadoMetabolismo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		resultadoMetabolismo.setFont(new Font("Arial", Font.PLAIN, 18));
 		resultadoMetabolismo.setForeground(Color.WHITE);
 		painelResultado.add(resultadoMetabolismo);
 		
 		JLabel mensagemErro = new JLabel();
-		mensagemErro.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		mensagemErro.setFont(new Font("Arial", Font.PLAIN, 18));
 		mensagemErro.setForeground(Color.RED);
 		painelResultado.add(mensagemErro);
 				
 		JButton botaoCalcular = new JButton("Calcular");
-		botaoCalcular.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		botaoCalcular.setFont(new Font("Arial", Font.PLAIN, 18));
 		botaoCalcular.addActionListener(new ActionListener() {
 				
 			@Override
@@ -245,9 +258,6 @@ public class CalculatorMain extends JFrame {
 					int idade = Integer.parseInt(textFieldIdade.getText());
 
 					resultadoImc.setText(resultadoImc(calcularImc(peso, altura)));
-			
-					resultadoMetabolismo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-					resultadoMetabolismo.setForeground(Color.WHITE);
 					
 					if(radioButtonMasculino.isSelected()) {
 						resultadoMetabolismo.setText("Seu metabolismo é: " + String.format("%.2f", calcularMetabolismoBasalMasculino(peso, altura, idade)));
@@ -272,7 +282,7 @@ public class CalculatorMain extends JFrame {
 		painelBotoes.add(botaoCalcular);
 		
 		JButton botaoLimpar = new JButton("Limpar");
-		botaoLimpar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		botaoLimpar.setFont(new Font("Arial", Font.PLAIN, 18));
 		botaoLimpar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -295,7 +305,7 @@ public class CalculatorMain extends JFrame {
 				System.exit(0);
 			}
 		});
-		botaoFechar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		botaoFechar.setFont(new Font("Arial", Font.PLAIN, 18));
 		painelBotoes.add(botaoFechar);
 
 		setContentPane(contentPane);
