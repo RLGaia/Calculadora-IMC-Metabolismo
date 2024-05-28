@@ -26,6 +26,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JWindow;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 
 public class CalculatorMain extends JFrame {
 
@@ -65,12 +66,7 @@ public class CalculatorMain extends JFrame {
 		labelTitulo.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitulo.setBounds(203, 20, 186, 14);
 		contentPane.add(labelTitulo);
-	
-		JSeparator separator = new JSeparator();
-		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBackground(Color.LIGHT_GRAY);
-		contentPane.add(separator);
-		
+			
 		JPanel painelNome = new JPanel();
 		painelNome.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelNome.setBackground(Color.DARK_GRAY);
@@ -84,6 +80,7 @@ public class CalculatorMain extends JFrame {
 		
 		JTextField textFieldNome = new JTextField(15);
 		textFieldNome.setBackground(Color.WHITE);
+		textFieldNome.setBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK));
 		textFieldNome.setFont(new Font("Arial", Font.PLAIN, 16));
 		textFieldNome.addKeyListener(new KeyAdapter() {
 			@Override
@@ -109,6 +106,7 @@ public class CalculatorMain extends JFrame {
 		
 		JTextField textFieldPeso = new JTextField(3);
 		textFieldPeso.setBackground(Color.WHITE);
+		textFieldPeso.setBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK));
 		textFieldPeso.setFont(new Font("Arial", Font.PLAIN, 18));
 		textFieldPeso.addKeyListener(new KeyAdapter() {
 			@Override
@@ -134,6 +132,7 @@ public class CalculatorMain extends JFrame {
 		
 		JTextField textFieldAltura = new JTextField();
 		textFieldAltura.setBackground(Color.WHITE);
+		textFieldAltura.setBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK));
 		textFieldAltura.setFont(new Font("Arial", Font.PLAIN, 18));
 		textFieldAltura.addKeyListener(new KeyAdapter() {
 			@Override
@@ -159,6 +158,7 @@ public class CalculatorMain extends JFrame {
 		
 		JTextField textFieldIdade = new JTextField();
 		textFieldIdade.setBackground(Color.WHITE);
+		textFieldIdade.setBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK));
 		textFieldIdade.setFont(new Font("Arial", Font.PLAIN, 18));
 		textFieldIdade.addKeyListener(new KeyAdapter() {
 			@Override
@@ -214,10 +214,10 @@ public class CalculatorMain extends JFrame {
 		painelBotoes.setLayout(new GridLayout());
 		contentPane.add(painelBotoes);
 		
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setForeground(Color.LIGHT_GRAY);
-		separator_2.setBackground(Color.LIGHT_GRAY);
-		contentPane.add(separator_2);
+		JSeparator separatorBotoes = new JSeparator();
+		separatorBotoes.setForeground(Color.LIGHT_GRAY);
+		separatorBotoes.setBackground(Color.LIGHT_GRAY);
+		contentPane.add(separatorBotoes);
 					
 		JPanel painelResultado = new JPanel();
 		painelResultado.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -230,10 +230,10 @@ public class CalculatorMain extends JFrame {
 		labelResultados.setForeground(Color.WHITE);
 		painelResultado.add(labelResultados);
 		
-		JSeparator separator_3 = new JSeparator();
-		separator_3.setBackground(Color.DARK_GRAY);
-		separator_3.setForeground(Color.DARK_GRAY);
-		painelResultado.add(separator_3);
+		JSeparator separatorResultado = new JSeparator();
+		separatorResultado.setBackground(Color.DARK_GRAY);
+		separatorResultado.setForeground(Color.DARK_GRAY);
+		painelResultado.add(separatorResultado);
 		
 		JLabel resultadoImc = new JLabel("IMC: não calculado");
 		resultadoImc.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -323,9 +323,10 @@ public class CalculatorMain extends JFrame {
 		});
 		painelBotoes.add(botaoLimpar);
 						
-		JSeparator separator_4 = new JSeparator();
-		separator_4.setForeground(Color.LIGHT_GRAY);
-		contentPane.add(separator_4);
+		JSeparator separatorFinal = new JSeparator();
+		separatorFinal.setForeground(Color.LIGHT_GRAY);
+		separatorFinal.setBackground(Color.LIGHT_GRAY);
+		contentPane.add(separatorFinal);
 
 		JPanel painelFinal = new JPanel();
 		painelFinal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -379,12 +380,9 @@ public class CalculatorMain extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+
 				contentPane.setBackground(Color.LIGHT_GRAY);
-				
-				separator.setForeground(Color.DARK_GRAY);
-				separator.setBackground(Color.DARK_GRAY);
-				
+			
 				painelNome.setBackground(Color.DARK_GRAY);
 				labelNome.setForeground(Color.WHITE);
 				labelNome.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -425,8 +423,8 @@ public class CalculatorMain extends JFrame {
 				painelResultado.setBackground(Color.DARK_GRAY);
 				labelResultados.setFont(new Font("Arial", Font.BOLD, 20));
 				labelResultados.setForeground(Color.WHITE);
-				separator_3.setBackground(Color.DARK_GRAY);
-				separator_3.setForeground(Color.DARK_GRAY);
+				separatorResultado.setBackground(Color.DARK_GRAY);
+				separatorResultado.setForeground(Color.DARK_GRAY);
 				resultadoImc.setFont(new Font("Arial", Font.PLAIN, 18));
 				resultadoImc.setForeground(Color.WHITE);
 				resultadoMetabolismo.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -435,7 +433,8 @@ public class CalculatorMain extends JFrame {
 				mensagemErro.setFont(new Font("Arial", Font.PLAIN, 18));
 				mensagemErro.setForeground(Color.YELLOW);
 				
-				separator_4.setForeground(Color.LIGHT_GRAY);
+				separatorFinal.setForeground(Color.LIGHT_GRAY);
+				separatorFinal.setBackground(Color.LIGHT_GRAY);
 				painelFinal.setBackground(Color.DARK_GRAY);
 				painelIdentificacao.setBackground(Color.DARK_GRAY);
 
@@ -460,10 +459,7 @@ public class CalculatorMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				contentPane.setBackground(Color.LIGHT_GRAY);
-				
-				separator.setForeground(Color.WHITE);
-				separator.setBackground(Color.WHITE);
-				
+		
 				painelNome.setBackground(Color.WHITE);
 				labelNome.setForeground(Color.BLACK);
 				labelNome.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -504,8 +500,8 @@ public class CalculatorMain extends JFrame {
 				painelResultado.setBackground(Color.WHITE);
 				labelResultados.setFont(new Font("Arial", Font.BOLD, 20));
 				labelResultados.setForeground(Color.BLACK);
-				separator_3.setBackground(Color.WHITE);
-				separator_3.setForeground(Color.WHITE);
+				separatorResultado.setBackground(Color.WHITE);
+				separatorResultado.setForeground(Color.WHITE);
 				resultadoImc.setFont(new Font("Arial", Font.PLAIN, 18));
 				resultadoImc.setForeground(Color.BLACK);
 				resultadoMetabolismo.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -514,7 +510,8 @@ public class CalculatorMain extends JFrame {
 				mensagemErro.setFont(new Font("Arial", Font.PLAIN, 18));
 				mensagemErro.setForeground(Color.RED);
 				
-				separator_4.setForeground(Color.LIGHT_GRAY);
+				separatorFinal.setForeground(Color.LIGHT_GRAY);
+				separatorFinal.setBackground(Color.LIGHT_GRAY);
 				painelFinal.setBackground(Color.WHITE);
 				painelIdentificacao.setBackground(Color.WHITE);
 
