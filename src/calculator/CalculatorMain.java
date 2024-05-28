@@ -380,21 +380,10 @@ public class CalculatorMain extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				contentPane.setBackground(Color.BLACK);
-				separator.setForeground(Color.LIGHT_GRAY);
-				separator.setBackground(Color.LIGHT_GRAY);
-			}
-		});
-		
-		temaClaro.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				contentPane.setBackground(Color.WHITE);
+				contentPane.setBackground(Color.LIGHT_GRAY);
 				
-				separator.setForeground(Color.LIGHT_GRAY);
-				separator.setBackground(Color.LIGHT_GRAY);
+				separator.setForeground(Color.DARK_GRAY);
+				separator.setBackground(Color.DARK_GRAY);
 				
 				painelNome.setBackground(Color.DARK_GRAY);
 				labelNome.setForeground(Color.WHITE);
@@ -426,6 +415,8 @@ public class CalculatorMain extends JFrame {
 				painelSexo.setBackground(Color.DARK_GRAY);
 				labelSexo.setForeground(Color.WHITE);
 				labelSexo.setFont(new Font("Arial", Font.PLAIN, 18));
+				
+				painelBotoes.setBackground(Color.DARK_GRAY);
 				radioButtonMasculino.setForeground(Color.WHITE);
 				radioButtonMasculino.setBackground(Color.DARK_GRAY);
 				radioButtonFeminino.setForeground(Color.WHITE);
@@ -459,6 +450,85 @@ public class CalculatorMain extends JFrame {
 				labelProfessor.setFont(new Font("Arial", Font.PLAIN, 12));
 
 				labelAluno.setForeground(Color.WHITE);
+				labelAluno.setFont(new Font("Arial", Font.PLAIN, 12));
+			}
+		});
+		
+		temaClaro.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				contentPane.setBackground(Color.LIGHT_GRAY);
+				
+				separator.setForeground(Color.WHITE);
+				separator.setBackground(Color.WHITE);
+				
+				painelNome.setBackground(Color.WHITE);
+				labelNome.setForeground(Color.BLACK);
+				labelNome.setFont(new Font("Arial", Font.PLAIN, 18));
+				textFieldNome.setBackground(Color.WHITE);
+				textFieldNome.setFont(new Font("Arial", Font.PLAIN, 16));
+				
+				painelPeso.setBackground(Color.WHITE);
+				labelPeso.setForeground(Color.BLACK);
+				labelPeso.setFont(new Font("Arial", Font.PLAIN, 18));
+				textFieldPeso.setBackground(Color.WHITE);
+				textFieldPeso.setFont(new Font("Arial", Font.PLAIN, 18));
+				
+				painelAltura.setBackground(Color.WHITE);
+				labelAltura.setForeground(Color.BLACK);
+				labelAltura.setFont(new Font("Arial", Font.PLAIN, 18));
+				textFieldAltura.setBackground(Color.WHITE);
+				textFieldAltura.setFont(new Font("Arial", Font.PLAIN, 18));
+				
+				painelIdade.setBackground(Color.WHITE);
+				labelIdade.setForeground(Color.BLACK);
+				labelIdade.setFont(new Font("Arial", Font.PLAIN, 18));
+				textFieldIdade.setBackground(Color.WHITE);
+				textFieldIdade.setFont(new Font("Arial", Font.PLAIN, 18));
+				
+				labelCamposObrigatorios.setForeground(Color.RED);
+				labelCamposObrigatorios.setFont(new Font("Arial", Font.BOLD, 13));
+				
+				painelSexo.setBackground(Color.WHITE);
+				labelSexo.setForeground(Color.BLACK);
+				labelSexo.setFont(new Font("Arial", Font.PLAIN, 18));
+				
+				painelBotoes.setBackground(Color.WHITE);
+				radioButtonMasculino.setForeground(Color.BLACK);
+				radioButtonMasculino.setBackground(Color.WHITE);
+				radioButtonFeminino.setForeground(Color.BLACK);
+				radioButtonFeminino.setBackground(Color.WHITE);
+				
+				painelResultado.setBackground(Color.WHITE);
+				labelResultados.setFont(new Font("Arial", Font.BOLD, 20));
+				labelResultados.setForeground(Color.BLACK);
+				separator_3.setBackground(Color.WHITE);
+				separator_3.setForeground(Color.WHITE);
+				resultadoImc.setFont(new Font("Arial", Font.PLAIN, 18));
+				resultadoImc.setForeground(Color.BLACK);
+				resultadoMetabolismo.setFont(new Font("Arial", Font.PLAIN, 18));
+				resultadoMetabolismo.setForeground(Color.BLACK);
+				
+				mensagemErro.setFont(new Font("Arial", Font.PLAIN, 18));
+				mensagemErro.setForeground(Color.RED);
+				
+				separator_4.setForeground(Color.LIGHT_GRAY);
+				painelFinal.setBackground(Color.WHITE);
+				painelIdentificacao.setBackground(Color.WHITE);
+
+
+				labelUniversidade.setForeground(Color.BLACK);
+				labelUniversidade.setFont(new Font("Arial", Font.PLAIN, 12));
+
+				labelDisciplina.setForeground(Color.BLACK);
+				labelDisciplina.setFont(new Font("Arial", Font.PLAIN, 12));
+
+				labelProfessor.setForeground(Color.BLACK);
+				labelProfessor.setFont(new Font("Arial", Font.PLAIN, 12));
+
+				labelAluno.setForeground(Color.BLACK);
 				labelAluno.setFont(new Font("Arial", Font.PLAIN, 12));
 								
 			}
