@@ -37,10 +37,10 @@ public class CalculatorMain extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		mostrarSplash();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+//					mostrarSplash();
 					CalculatorMain frame = new CalculatorMain();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -55,7 +55,7 @@ public class CalculatorMain extends JFrame {
 	 */
 	public CalculatorMain() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(800, 400, 850, 550);
+		setBounds(700, 300, 850, 650);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(Color.LIGHT_GRAY);
@@ -222,7 +222,7 @@ public class CalculatorMain extends JFrame {
 		JPanel painelResultado = new JPanel();
 		painelResultado.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelResultado.setBackground(Color.DARK_GRAY);
-		painelResultado.setLayout(new GridLayout(5,0));
+		painelResultado.setLayout(new GridLayout(6,2));
 		contentPane.add(painelResultado);
 		
 		JLabel labelResultados = new JLabel("Resultados");
@@ -249,7 +249,35 @@ public class CalculatorMain extends JFrame {
 		mensagemErro.setFont(new Font("Arial", Font.PLAIN, 18));
 		mensagemErro.setForeground(Color.YELLOW);
 		painelResultado.add(mensagemErro);
+		
+		JButton botaoHistorico = new JButton("Histórico");
+		botaoHistorico.setFont(new Font("Arial", Font.PLAIN, 18));
+		botaoHistorico.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				JFrame frameHistorico = new JFrame("Histórico");
+				frameHistorico.setVisible(true);
+				frameHistorico.setBounds(800, 400, 850, 550);
+
+				JPanel painelHistorico = new JPanel();
+				painelHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
+				painelHistorico.setBackground(Color.LIGHT_GRAY);
+				painelHistorico.setLayout(new BoxLayout(painelHistorico, BoxLayout.PAGE_AXIS));
 				
+				JLabel labelHistorico = new JLabel("Histórico");
+				labelHistorico.setForeground(Color.BLACK);
+				labelHistorico.setFont(new Font("Arial", Font.BOLD, 20));
+				labelHistorico.setBounds(203, 20, 186, 14);
+				
+				painelHistorico.add(labelHistorico);
+				
+				frameHistorico.setContentPane(painelHistorico);
+			}
+		});
+		painelResultado.add(botaoHistorico);
+		
 		JButton botaoCalcular = new JButton("Calcular");
 		botaoCalcular.setFont(new Font("Arial", Font.PLAIN, 18));
 		botaoCalcular.addActionListener(new ActionListener() {
@@ -544,7 +572,7 @@ public class CalculatorMain extends JFrame {
 	private static void mostrarSplash() {
 		// Criando a tela de carregamento
 		JWindow window = new JWindow();
-		ImageIcon imageIcon = new ImageIcon("splash.jpg");
+		ImageIcon imageIcon = new ImageIcon("https://th.bing.com/th/id/OIG1.tlt2y26ulvKjSorWphm_?pid=ImgGn");
 		JLabel label = new JLabel(imageIcon);
 		window.getContentPane().add(label);
 		window.setBounds(500, 150, imageIcon.getIconWidth(), imageIcon.getIconHeight());
