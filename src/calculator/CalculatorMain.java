@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -22,6 +24,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
@@ -271,42 +274,79 @@ public class CalculatorMain extends JFrame {
 		mensagemErro.setForeground(Color.YELLOW);
 		painelResultado.add(mensagemErro);
 		
+		JFrame frameHistorico = new JFrame("Histórico");
+		frameHistorico.setBounds(800, 400, 850, 550);
+		
+		JPanel painelHistorico = new JPanel();
+		painelHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
+		painelHistorico.setBackground(Color.LIGHT_GRAY);
+		painelHistorico.setLayout(new BoxLayout(painelHistorico, BoxLayout.PAGE_AXIS));
+	
+		JPanel painelResultadoHistorico = new JPanel();
+		painelResultadoHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
+		painelResultadoHistorico.setBackground(Color.LIGHT_GRAY);
+		painelResultadoHistorico.setLayout(new GridLayout(6,6));
+		painelHistorico.add(painelResultadoHistorico);
+		
+		JLabel labelHistorico = new JLabel("Histórico");
+		labelHistorico.setForeground(Color.BLACK);
+		labelHistorico.setFont(new Font("Arial", Font.BOLD, 20));
+		labelHistorico.setBounds(203, 20, 186, 14);
+		painelHistorico.add(labelHistorico);
+	
+		JButton botaoFecharHistorico = new JButton("Fechar");
+		botaoFecharHistorico.setFont(new Font("Arial", Font.PLAIN, 18));
+		botaoFecharHistorico.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+
+		JButton botaoLimparHistorico = new JButton("Limpar Histórico");
+		botaoLimparHistorico.setFont(new Font("Arial", Font.PLAIN, 18));
+		botaoLimparHistorico.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Connection connection = DriverManager.getConnection(jdbcUrl);
+					Statement statement = connection.createStatement();
+					statement.executeUpdate("DELETE FROM HISTORICO");
+					System.out.println("Conexão com o database - DELETE");
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		painelHistorico.add(botaoLimparHistorico);
+		
+		String[] lista = new String[6];
+		JList<String> listaHistorico = new JList<String>(lista);
+		
 		JButton botaoHistorico = new JButton("Histórico");
 		botaoHistorico.setFont(new Font("Arial", Font.PLAIN, 18));
 		botaoHistorico.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				JFrame frameHistorico = new JFrame("Histórico");
+				
 				frameHistorico.setVisible(true);
-				frameHistorico.setBounds(800, 400, 850, 550);
-
-				JPanel painelHistorico = new JPanel();
-				painelHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
-				painelHistorico.setBackground(Color.LIGHT_GRAY);
-				painelHistorico.setLayout(new BoxLayout(painelHistorico, BoxLayout.PAGE_AXIS));
-				
-				JLabel labelHistorico = new JLabel("Histórico");
-				labelHistorico.setForeground(Color.BLACK);
-				labelHistorico.setFont(new Font("Arial", Font.BOLD, 20));
-				labelHistorico.setBounds(203, 20, 186, 14);
-				
+		
 				painelHistorico.add(labelHistorico);
-				
-				JLabel labelResultado = new JLabel();
-				labelResultado.setForeground(Color.BLACK);
-				labelResultado.setFont(new Font("Arial", Font.BOLD, 20));
-				labelResultado.setBounds(203, 20, 186, 14);
-				
+				painelHistorico.add(painelResultadoHistorico);		
+
 				try {
 					Connection connection = DriverManager.getConnection(jdbcUrl);
 					Statement statement = connection.createStatement();
-					String sql = "select rowid, * from historico";
+					String sql = "select rowid, * from historico order by rowid desc limit 5";
 					int rows = statement.executeUpdate(sql);
 					ResultSet result = statement.executeQuery(sql);
 					System.out.println("Conexão com o database - SELECT");
-					while(result.next()) {					
+					System.out.println("Rows: " + rows);
+					while(result.next()) {											
 						Integer id = result.getInt("rowid");
 						String nome = result.getString("nome");
 						String peso = result.getString("peso");
@@ -314,48 +354,27 @@ public class CalculatorMain extends JFrame {
 						String idade = result.getString("idade");
 						String metabolismo = result.getString("metabolismo");
 						String resultadoImc = result.getString("resultadoImc");
-						System.out.println(id + nome + peso + altura + idade + metabolismo + resultadoImc);
+						System.out.printf("%d | %s | %s | %s | %s | %s | %s%n", id, nome, peso, altura, idade, metabolismo, resultadoImc);
+						
+						System.out.println("result.getRow(): " + result.getRow());
+						lista[result.getRow()] = String.format("%d | %s | %s | %s | %s | %s | %s%n", id, nome, peso, altura, idade, metabolismo, resultadoImc);
+						
 					}
 				} catch (SQLException e2) {
 					e2.printStackTrace();
 				}
 				
 
-				
-				JButton botaoLimparHistorico = new JButton("Limpar Histórico");
-				botaoHistorico.setFont(new Font("Arial", Font.PLAIN, 18));
-				botaoHistorico.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						try {
-							Connection connection = DriverManager.getConnection(jdbcUrl);
-							Statement statement = connection.createStatement();
-							statement.executeUpdate("DELETE FROM HISTORICO");
-							System.out.println("Conexão com o database - DELETE");
-						} catch (SQLException e1) {
-							e1.printStackTrace();
-						}
-						
-					}
-				});
+				painelResultadoHistorico.add(listaHistorico);
 				painelHistorico.add(botaoLimparHistorico);
-				
-				JButton botaoFecharHistorico = new JButton("Fechar");
-				botaoFecharHistorico.setFont(new Font("Arial", Font.PLAIN, 18));
-				botaoFecharHistorico.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						System.exit(0);
-					}
-				});
 				painelHistorico.add(botaoFecharHistorico);
+				
 				
 				frameHistorico.setContentPane(painelHistorico);
 			}
 		});
 		painelResultado.add(botaoHistorico);
+		
 		
 		JButton botaoCalcular = new JButton("Calcular");
 		botaoCalcular.setFont(new Font("Arial", Font.PLAIN, 18));
