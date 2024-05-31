@@ -9,6 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DecimalFormat;
 
 import javax.swing.BoxLayout;
@@ -32,7 +37,8 @@ public class CalculatorMain extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	private static String jdbcUrl = "jdbc:sqlite:calculadoraImc.db";
+	
 	/**
 	 * Launch the application.
 	 */
@@ -46,6 +52,7 @@ public class CalculatorMain extends JFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
 			}
 		});
 	}
@@ -54,6 +61,20 @@ public class CalculatorMain extends JFrame {
 	 * Create the frame.
 	 */
 	public CalculatorMain() {
+		
+//		Connection connection;
+//		Statement statement;
+//		try {
+//			connection = DriverManager.getConnection(jdbcUrl);
+//			statement = connection.createStatement();
+//			String sqlCreate = "create table historico (nome varchar(15), peso varchar(3), altura varchar(3), idade varchar(3), metabolismo varchar(20), resultadoImc varchar(100))";			
+//			statement.executeUpdate(sqlCreate);
+//			System.out.println("Conexão criada");
+//		} catch (SQLException e) {
+//
+//			e.printStackTrace();
+//		}
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 850, 650);
 		contentPane = new JPanel();
@@ -73,7 +94,7 @@ public class CalculatorMain extends JFrame {
 		painelNome.setLayout(new GridLayout(1,2));
 		contentPane.add(painelNome);
 		
-		JLabel labelNome = new JLabel("Nome (primeiro):");
+		JLabel labelNome = new JLabel("Nome (primeiro)*:");
 		labelNome.setForeground(Color.WHITE);
 		labelNome.setFont(new Font("Arial", Font.PLAIN, 18));
 		painelNome.add(labelNome);
@@ -273,6 +294,64 @@ public class CalculatorMain extends JFrame {
 				
 				painelHistorico.add(labelHistorico);
 				
+				JLabel labelResultado = new JLabel();
+				labelResultado.setForeground(Color.BLACK);
+				labelResultado.setFont(new Font("Arial", Font.BOLD, 20));
+				labelResultado.setBounds(203, 20, 186, 14);
+				
+				try {
+					Connection connection = DriverManager.getConnection(jdbcUrl);
+					Statement statement = connection.createStatement();
+					String sql = "select rowid, * from historico";
+					int rows = statement.executeUpdate(sql);
+					ResultSet result = statement.executeQuery(sql);
+					System.out.println("Conexão com o database - SELECT");
+					while(result.next()) {					
+						Integer id = result.getInt("rowid");
+						String nome = result.getString("nome");
+						String peso = result.getString("peso");
+						String altura = result.getString("altura");
+						String idade = result.getString("idade");
+						String metabolismo = result.getString("metabolismo");
+						String resultadoImc = result.getString("resultadoImc");
+						System.out.println(id + nome + peso + altura + idade + metabolismo + resultadoImc);
+					}
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+				
+
+				
+				JButton botaoLimparHistorico = new JButton("Limpar Histórico");
+				botaoHistorico.setFont(new Font("Arial", Font.PLAIN, 18));
+				botaoHistorico.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						try {
+							Connection connection = DriverManager.getConnection(jdbcUrl);
+							Statement statement = connection.createStatement();
+							statement.executeUpdate("DELETE FROM HISTORICO");
+							System.out.println("Conexão com o database - DELETE");
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+						
+					}
+				});
+				painelHistorico.add(botaoLimparHistorico);
+				
+				JButton botaoFecharHistorico = new JButton("Fechar");
+				botaoFecharHistorico.setFont(new Font("Arial", Font.PLAIN, 18));
+				botaoFecharHistorico.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.exit(0);
+					}
+				});
+				painelHistorico.add(botaoFecharHistorico);
+				
 				frameHistorico.setContentPane(painelHistorico);
 			}
 		});
@@ -286,14 +365,23 @@ public class CalculatorMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
+					Connection connection = DriverManager.getConnection(jdbcUrl);
+					Statement statement = connection.createStatement();
+					System.out.println("Conexão com o database - INSERT");
 					
 					mensagemErro.setText(" ");
 
+					String nome = textFieldNome.getText();
 					double altura = Double.parseDouble(textFieldAltura.getText());
 					double peso = Double.parseDouble(textFieldPeso.getText());
 					int idade = Integer.parseInt(textFieldIdade.getText());
-
-					if(altura == 0) {
+					String imcResposta;
+					String metabolismoResposta;		
+					
+					if(nome == null || nome.equals("")) {
+						textFieldNome.setText(null);
+						mensagemErro.setText("Nome não preenchido");
+					} else if(altura == 0) {
 						textFieldAltura.setText(null);
 						resultadoImc.setText("IMC: não calculado");
 						resultadoMetabolismo.setText("Metabolismo: não calculado");
@@ -309,13 +397,25 @@ public class CalculatorMain extends JFrame {
 						resultadoMetabolismo.setText("Metabolismo: não calculado");
 						mensagemErro.setText("Idade não preenchida");
 					} else {
-						resultadoImc.setText(resultadoImc(calcularImc(peso, altura)));
+						imcResposta = resultadoImc(calcularImc(peso, altura));						
+						resultadoImc.setText(imcResposta);
+						
+						
 						
 						if(radioButtonMasculino.isSelected()) {
-							resultadoMetabolismo.setText("Metabolismo: " + String.format("%.2f", calcularMetabolismoBasalMasculino(peso, altura, idade)));
+							metabolismoResposta = String.format("%.2f", calcularMetabolismoBasalMasculino(peso, altura, idade));
+							resultadoMetabolismo.setText("Metabolismo: " + metabolismoResposta);
+
+							statement.executeUpdate("insert into historico values ('" + textFieldNome.getText() + "', '" + textFieldPeso.getText() + "',"
+									+ " '"+ textFieldAltura.getText() + "', '" + textFieldIdade.getText() + "', '" + metabolismoResposta + "', '"+ imcResposta + "')");
+	
 						}
 						else if (radioButtonFeminino.isSelected()) {
-							resultadoMetabolismo.setText("Metabolismo: " + String.format("%.2f", calcularMetabolismoBasalFeminino(peso, altura, idade)));					
+							metabolismoResposta = String.format("%.2f", calcularMetabolismoBasalFeminino(peso, altura, idade));
+							resultadoMetabolismo.setText("Metabolismo: " + metabolismoResposta);
+							
+							statement.executeUpdate("insert into historico values ('" + textFieldNome.getText() + "', '" + textFieldPeso.getText() + "',"
+									+ " '"+ textFieldAltura.getText() + "', '" + textFieldIdade.getText() + "', '" + metabolismoResposta + "', '"+ imcResposta + "')");
 						}										
 					}
 					
@@ -328,6 +428,8 @@ public class CalculatorMain extends JFrame {
 				} catch (NumberFormatException e2) {
 					System.err.println("Erro - Entrada inválida - " + e2);
 					mensagemErro.setText("Campos obrigatórios não preenchidos");
+				} catch (SQLException e1) {
+					e1.printStackTrace();
 				}				
 				
 			}
