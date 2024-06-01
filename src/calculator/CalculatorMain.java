@@ -18,6 +18,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.print.attribute.standard.JobPrioritySupported;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -27,6 +28,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
@@ -41,6 +43,7 @@ public class CalculatorMain extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static String jdbcUrl = "jdbc:sqlite:calculadoraImc.db";
+	private static String[] lista = new String[6];
 	
 	/**
 	 * Launch the application.
@@ -245,8 +248,10 @@ public class CalculatorMain extends JFrame {
 					
 		JPanel painelResultado = new JPanel();
 		painelResultado.setBorder(new EmptyBorder(5, 5, 5, 5));
+//		painelResultado.setMaximumSize(getMaximumSize());
 		painelResultado.setBackground(Color.DARK_GRAY);
 		painelResultado.setLayout(new GridLayout(6,2));
+//		painelResultado.setLayout(new BoxLayout(painelResultado, BoxLayout.PAGE_AXIS));
 		contentPane.add(painelResultado);
 		
 		JLabel labelResultados = new JLabel("Resultados");
@@ -275,7 +280,8 @@ public class CalculatorMain extends JFrame {
 		painelResultado.add(mensagemErro);
 		
 		JFrame frameHistorico = new JFrame("Histórico");
-		frameHistorico.setBounds(800, 400, 850, 550);
+		frameHistorico.setBounds(800, 400, 1350, 450);
+		frameHistorico.setLocationRelativeTo(null);
 		
 		JPanel painelHistorico = new JPanel();
 		painelHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -284,90 +290,75 @@ public class CalculatorMain extends JFrame {
 	
 		JPanel painelResultadoHistorico = new JPanel();
 		painelResultadoHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
-		painelResultadoHistorico.setBackground(Color.LIGHT_GRAY);
+		painelResultadoHistorico.setBackground(Color.DARK_GRAY);
 		painelResultadoHistorico.setLayout(new GridLayout(6,6));
-		painelHistorico.add(painelResultadoHistorico);
+		
+		JPanel painelBotoesHistorico = new JPanel();
+		painelBotoesHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
+		painelBotoesHistorico.setBackground(Color.DARK_GRAY);
+		painelBotoesHistorico.setLayout(new GridLayout(1,2));
 		
 		JLabel labelHistorico = new JLabel("Histórico");
 		labelHistorico.setForeground(Color.BLACK);
-		labelHistorico.setFont(new Font("Arial", Font.BOLD, 20));
+		labelHistorico.setFont(new Font("Arial", Font.BOLD, 24));
 		labelHistorico.setBounds(203, 20, 186, 14);
-		painelHistorico.add(labelHistorico);
 	
 		JButton botaoFecharHistorico = new JButton("Fechar");
-		botaoFecharHistorico.setFont(new Font("Arial", Font.PLAIN, 18));
+		botaoFecharHistorico.setFont(new Font("Arial", Font.BOLD, 18));
 		botaoFecharHistorico.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				frameHistorico.dispose();
 			}
 		});
 
+		JList<String> listaHistorico = new JList<String>(lista);
+		listaHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
+		listaHistorico.setFont(new Font("Arial", Font.BOLD, 16));
+		listaHistorico.setSize(getMaximumSize());
+		
+		JFrame confirmationFrame = new JFrame("Confirmação");
+		confirmationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		confirmationFrame.setSize(300, 200);
+		confirmationFrame.setLocationRelativeTo(null);
+	
 		JButton botaoLimparHistorico = new JButton("Limpar Histórico");
-		botaoLimparHistorico.setFont(new Font("Arial", Font.PLAIN, 18));
+		botaoLimparHistorico.setFont(new Font("Arial", Font.BOLD, 18));
 		botaoLimparHistorico.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					Connection connection = DriverManager.getConnection(jdbcUrl);
-					Statement statement = connection.createStatement();
-					statement.executeUpdate("DELETE FROM HISTORICO");
-					System.out.println("Conexão com o database - DELETE");
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+			public void actionPerformed(ActionEvent e) {	
+				int result = JOptionPane.showConfirmDialog(confirmationFrame, "Tem certeza que deseja excluir todo o histórico?", "Confirmação", JOptionPane.YES_NO_OPTION);
+				if (result == JOptionPane.YES_OPTION) {
+					deleteHistorico(lista, listaHistorico);
+					JOptionPane.showMessageDialog(confirmationFrame, "Histórico excluído com sucesso");
+				} else {
+//					JOptionPane.showMessageDialog(confirmationFrame, "Ação cancelada");
 				}
+				
 				
 			}
 		});
 		painelHistorico.add(botaoLimparHistorico);
-		
-		String[] lista = new String[6];
-		JList<String> listaHistorico = new JList<String>(lista);
-		
+			
 		JButton botaoHistorico = new JButton("Histórico");
-		botaoHistorico.setFont(new Font("Arial", Font.PLAIN, 18));
+		botaoHistorico.setFont(new Font("Arial", Font.BOLD, 18));
 		botaoHistorico.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
+				selectHistorico(lista);
 				
 				frameHistorico.setVisible(true);
-		
+				
 				painelHistorico.add(labelHistorico);
 				painelHistorico.add(painelResultadoHistorico);		
-
-				try {
-					Connection connection = DriverManager.getConnection(jdbcUrl);
-					Statement statement = connection.createStatement();
-					String sql = "select rowid, * from historico order by rowid desc limit 5";
-					int rows = statement.executeUpdate(sql);
-					ResultSet result = statement.executeQuery(sql);
-					System.out.println("Conexão com o database - SELECT");
-					System.out.println("Rows: " + rows);
-					while(result.next()) {											
-						Integer id = result.getInt("rowid");
-						String nome = result.getString("nome");
-						String peso = result.getString("peso");
-						String altura = result.getString("altura");
-						String idade = result.getString("idade");
-						String metabolismo = result.getString("metabolismo");
-						String resultadoImc = result.getString("resultadoImc");
-						System.out.printf("%d | %s | %s | %s | %s | %s | %s%n", id, nome, peso, altura, idade, metabolismo, resultadoImc);
-						
-						System.out.println("result.getRow(): " + result.getRow());
-						lista[result.getRow()] = String.format("%d | %s | %s | %s | %s | %s | %s%n", id, nome, peso, altura, idade, metabolismo, resultadoImc);
-						
-					}
-				} catch (SQLException e2) {
-					e2.printStackTrace();
-				}
-				
-
 				painelResultadoHistorico.add(listaHistorico);
-				painelHistorico.add(botaoLimparHistorico);
-				painelHistorico.add(botaoFecharHistorico);
+				painelResultadoHistorico.add(painelBotoesHistorico);
+				painelBotoesHistorico.add(botaoLimparHistorico);
+				painelBotoesHistorico.add(botaoFecharHistorico);
 				
 				
 				frameHistorico.setContentPane(painelHistorico);
@@ -377,7 +368,7 @@ public class CalculatorMain extends JFrame {
 		
 		
 		JButton botaoCalcular = new JButton("Calcular");
-		botaoCalcular.setFont(new Font("Arial", Font.PLAIN, 18));
+		botaoCalcular.setFont(new Font("Arial", Font.BOLD, 18));
 		botaoCalcular.addActionListener(new ActionListener() {
 				
 			@Override
@@ -427,7 +418,7 @@ public class CalculatorMain extends JFrame {
 
 							statement.executeUpdate("insert into historico values ('" + textFieldNome.getText() + "', '" + textFieldPeso.getText() + "',"
 									+ " '"+ textFieldAltura.getText() + "', '" + textFieldIdade.getText() + "', '" + metabolismoResposta + "', '"+ imcResposta + "')");
-	
+							selectHistorico(lista);
 						}
 						else if (radioButtonFeminino.isSelected()) {
 							metabolismoResposta = String.format("%.2f", calcularMetabolismoBasalFeminino(peso, altura, idade));
@@ -435,6 +426,7 @@ public class CalculatorMain extends JFrame {
 							
 							statement.executeUpdate("insert into historico values ('" + textFieldNome.getText() + "', '" + textFieldPeso.getText() + "',"
 									+ " '"+ textFieldAltura.getText() + "', '" + textFieldIdade.getText() + "', '" + metabolismoResposta + "', '"+ imcResposta + "')");
+							selectHistorico(lista);
 						}										
 					}
 					
@@ -456,7 +448,7 @@ public class CalculatorMain extends JFrame {
 		painelBotoes.add(botaoCalcular);
 		
 		JButton botaoLimpar = new JButton("Limpar");
-		botaoLimpar.setFont(new Font("Arial", Font.PLAIN, 18));
+		botaoLimpar.setFont(new Font("Arial", Font.BOLD, 18));
 		botaoLimpar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -493,14 +485,17 @@ public class CalculatorMain extends JFrame {
 		labelUniversidade.setForeground(Color.WHITE);
 		labelUniversidade.setFont(new Font("Arial", Font.PLAIN, 12));
 		painelIdentificacao.add(labelUniversidade);
+		
 		JLabel labelDisciplina= new JLabel("Programação Orientada a Objetos III");
 		labelDisciplina.setForeground(Color.WHITE);
 		labelDisciplina.setFont(new Font("Arial", Font.PLAIN, 12));
 		painelIdentificacao.add(labelDisciplina);
+		
 		JLabel labelProfessor= new JLabel("Prof. Romes Heriberto Pires de Araujo");
 		labelProfessor.setForeground(Color.WHITE);
 		labelProfessor.setFont(new Font("Arial", Font.PLAIN, 12));
 		painelIdentificacao.add(labelProfessor);
+		
 		JLabel labelAluno= new JLabel("Rodrigo Lobo Gaia da Silva - 72151181");
 		labelAluno.setForeground(Color.WHITE);
 		labelAluno.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -513,7 +508,7 @@ public class CalculatorMain extends JFrame {
 				System.exit(0);
 			}
 		});
-		botaoFechar.setFont(new Font("Arial", Font.PLAIN, 18));
+		botaoFechar.setFont(new Font("Arial", Font.BOLD, 18));
 		painelFinal.add(botaoFechar);
 			
 		JMenuBar menuBar = new JMenuBar();
@@ -578,6 +573,11 @@ public class CalculatorMain extends JFrame {
 				resultadoImc.setForeground(Color.WHITE);
 				resultadoMetabolismo.setFont(new Font("Arial", Font.PLAIN, 18));
 				resultadoMetabolismo.setForeground(Color.WHITE);
+				
+				painelHistorico.setBackground(Color.LIGHT_GRAY);
+				labelHistorico.setForeground(Color.BLACK);
+				painelResultadoHistorico.setBackground(Color.DARK_GRAY);
+				painelBotoesHistorico.setBackground(Color.DARK_GRAY);
 				
 				mensagemErro.setFont(new Font("Arial", Font.PLAIN, 18));
 				mensagemErro.setForeground(Color.YELLOW);
@@ -656,6 +656,11 @@ public class CalculatorMain extends JFrame {
 				resultadoMetabolismo.setFont(new Font("Arial", Font.PLAIN, 18));
 				resultadoMetabolismo.setForeground(Color.BLACK);
 				
+				painelHistorico.setBackground(Color.LIGHT_GRAY);
+				labelHistorico.setForeground(Color.BLACK);
+				painelResultadoHistorico.setBackground(Color.WHITE);
+				painelBotoesHistorico.setBackground(Color.WHITE);
+				
 				mensagemErro.setFont(new Font("Arial", Font.PLAIN, 18));
 				mensagemErro.setForeground(Color.RED);
 				
@@ -687,6 +692,7 @@ public class CalculatorMain extends JFrame {
 		menuTema.add(temaEscuro);
 		menuTema.add(temaClaro);
 		
+		setLocationRelativeTo(null);
 		setContentPane(contentPane);
 	}
 
@@ -736,6 +742,50 @@ public class CalculatorMain extends JFrame {
 	private static double calcularMetabolismoBasalFeminino(double peso, double altura, int idade) {
 		double metabolismo = 655 + (9.6 * peso) + (1.8 * altura) - (4.7 * idade);
 		return metabolismo;
+	}
+	
+	private static void selectHistorico(String[] lista) {
+		try {
+			Connection connection = DriverManager.getConnection(jdbcUrl);
+			Statement statement = connection.createStatement();
+			String sql = "select rowid, * from historico order by rowid desc limit 5";
+			int rows = statement.executeUpdate(sql);
+			ResultSet result = statement.executeQuery(sql);
+			System.out.println("Conexão com o database - SELECT");
+			System.out.println("Rows: " + rows);
+			while(result.next()) {											
+				Integer id = result.getInt("rowid");
+				String nome = result.getString("nome");
+				String peso = result.getString("peso");
+				String altura = result.getString("altura");
+				String idade = result.getString("idade");
+				String metabolismo = result.getString("metabolismo");
+				String resultadoImc = result.getString("resultadoImc");
+				System.out.printf("%d |Nome: %s |Peso: %s kg |Altura: %s cm |Idade: %s anos |Metabolismo: %s |%s%n", id, nome, peso, altura, idade, metabolismo, resultadoImc);
+				
+				System.out.println("result.getRow(): " + result.getRow());
+				lista[result.getRow()] = String.format("%d |Nome: %s |Peso: %s kg |Altura: %s cm |Idade: %s anos |Metabolismo: %s |IMC: %s%n", id, nome, peso, altura, idade, metabolismo, resultadoImc);
+				
+			}
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+	}
+		
+	private static void deleteHistorico(String[] lista, JList listaHistorico) {
+		try {
+			Connection connection = DriverManager.getConnection(jdbcUrl);
+			Statement statement = connection.createStatement();
+			statement.executeUpdate("DELETE FROM HISTORICO");
+			System.out.println("Conexão com o database - DELETE");
+			
+			for (int i=0; i<lista.length; i++) {
+				lista[i] = "";
+			}
+			listaHistorico.setListData(lista);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 		
 }
