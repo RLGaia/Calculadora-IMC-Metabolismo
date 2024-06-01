@@ -43,7 +43,7 @@ public class CalculatorMain extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private static String jdbcUrl = "jdbc:sqlite:calculadoraImc.db";
+	private static final String jdbcUrl = "jdbc:sqlite:calculadoraImc.db";
 	private static String[] lista = new String[6];
 	private static JList<String> listaHistorico = new JList<String>(lista);
 	
@@ -71,31 +71,23 @@ public class CalculatorMain extends JFrame {
 	 */
 	public CalculatorMain() {
 		
-//		Connection connection;
-//		Statement statement;
-//		try {
-//			connection = DriverManager.getConnection(jdbcUrl);
-//			statement = connection.createStatement();
-//			String sqlCreate = "create table historico (nome varchar(15), peso varchar(3), altura varchar(3), idade varchar(3), metabolismo varchar(20), resultadoImc varchar(100))";			
-//			statement.executeUpdate(sqlCreate);
-//			System.out.println("Conexão criada");
-//		} catch (SQLException e) {
-//
-//			e.printStackTrace();
-//		}
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(700, 300, 1050, 950);
+		setBounds(700, 300, 1000, 850);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
 		
-		JLabel labelTitulo = new JLabel("Cálculadora IMC e Metabolismo Basal Harris-Benedict");
+		JPanel painelTitulo = new JPanel();
+		painelTitulo.setBorder(new EmptyBorder(5, 5, 5, 5));
+		painelTitulo.setBackground(Color.LIGHT_GRAY);
+		painelTitulo.setLayout(new GridLayout(1,1));
+		contentPane.add(painelTitulo);
+		
+		JLabel labelTitulo = new JLabel("Calculadora IMC e Metabolismo Basal Harris-Benedict");
 		labelTitulo.setForeground(Color.BLACK);
 		labelTitulo.setFont(new Font("Arial", Font.BOLD, 20));
-		labelTitulo.setBounds(203, 20, 186, 14);
-		contentPane.add(labelTitulo);
+		painelTitulo.add(labelTitulo);
 			
 		JPanel painelNome = new JPanel();
 		painelNome.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -105,7 +97,7 @@ public class CalculatorMain extends JFrame {
 		
 		JLabel labelNome = new JLabel("Nome (primeiro)*:");
 		labelNome.setForeground(Color.WHITE);
-		labelNome.setFont(new Font("Arial", Font.PLAIN, 18));
+		labelNome.setFont(new Font("Arial", Font.PLAIN, 16));
 		painelNome.add(labelNome);
 		
 		JTextField textFieldNome = new JTextField(15);
@@ -131,13 +123,13 @@ public class CalculatorMain extends JFrame {
 		
 		JLabel labelPeso = new JLabel("Peso (kg)*:");
 		labelPeso.setForeground(Color.WHITE);
-		labelPeso.setFont(new Font("Arial", Font.PLAIN, 18));
+		labelPeso.setFont(new Font("Arial", Font.PLAIN, 16));
 		painelPeso.add(labelPeso);
 		
 		JTextField textFieldPeso = new JTextField(3);
 		textFieldPeso.setBackground(Color.WHITE);
 		textFieldPeso.setBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK));
-		textFieldPeso.setFont(new Font("Arial", Font.PLAIN, 18));
+		textFieldPeso.setFont(new Font("Arial", Font.PLAIN, 16));
 		textFieldPeso.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent evt) {
@@ -157,13 +149,13 @@ public class CalculatorMain extends JFrame {
 		
 		JLabel labelAltura = new JLabel("Altura (cm)*:");
 		labelAltura.setForeground(Color.WHITE);
-		labelAltura.setFont(new Font("Arial", Font.PLAIN, 18));
+		labelAltura.setFont(new Font("Arial", Font.PLAIN, 16));
 		painelAltura.add(labelAltura);
 		
 		JTextField textFieldAltura = new JTextField();
 		textFieldAltura.setBackground(Color.WHITE);
 		textFieldAltura.setBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK));
-		textFieldAltura.setFont(new Font("Arial", Font.PLAIN, 18));
+		textFieldAltura.setFont(new Font("Arial", Font.PLAIN, 16));
 		textFieldAltura.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent evt) {
@@ -183,13 +175,13 @@ public class CalculatorMain extends JFrame {
 		
 		JLabel labelIdade = new JLabel("Idade (anos)*:");
 		labelIdade.setForeground(Color.WHITE);
-		labelIdade.setFont(new Font("Arial", Font.PLAIN, 18));
+		labelIdade.setFont(new Font("Arial", Font.PLAIN, 16));
 		painelIdade.add(labelIdade);
 		
 		JTextField textFieldIdade = new JTextField();
 		textFieldIdade.setBackground(Color.WHITE);
 		textFieldIdade.setBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK));
-		textFieldIdade.setFont(new Font("Arial", Font.PLAIN, 18));
+		textFieldIdade.setFont(new Font("Arial", Font.PLAIN, 16));
 		textFieldIdade.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent evt) {
@@ -203,7 +195,7 @@ public class CalculatorMain extends JFrame {
 		
 		JLabel labelCamposObrigatorios = new JLabel("(*) Campos obrigatórios");
 		labelCamposObrigatorios.setForeground(Color.YELLOW);
-		labelCamposObrigatorios.setFont(new Font("Arial", Font.BOLD, 13));
+		labelCamposObrigatorios.setFont(new Font("Arial", Font.BOLD, 12));
 		painelIdade.add(labelCamposObrigatorios);
 			
 		JPanel painelSexo = new JPanel();
@@ -214,7 +206,7 @@ public class CalculatorMain extends JFrame {
 		
 		JLabel labelSexo = new JLabel("Sexo:");
 		labelSexo.setForeground(Color.WHITE);
-		labelSexo.setFont(new Font("Arial", Font.PLAIN, 18));
+		labelSexo.setFont(new Font("Arial", Font.PLAIN, 16));
 		labelSexo.setBounds(320, 180, 91, 14);
 		painelSexo.add(labelSexo);
 	
@@ -223,13 +215,13 @@ public class CalculatorMain extends JFrame {
 		JRadioButton radioButtonMasculino = new JRadioButton("Masculino", true);
 		radioButtonMasculino.setForeground(Color.WHITE);
 		radioButtonMasculino.setBackground(Color.DARK_GRAY);
-		radioButtonMasculino.setFont(new Font("Arial", Font.PLAIN, 18));
+		radioButtonMasculino.setFont(new Font("Arial", Font.PLAIN, 16));
 		radioButtonMasculino.setBounds(425, 156, 149, 23);
 		
 		JRadioButton radioButtonFeminino = new JRadioButton("Feminino", false);
 		radioButtonFeminino.setForeground(Color.WHITE);
 		radioButtonFeminino.setBackground(Color.DARK_GRAY);
-		radioButtonFeminino.setFont(new Font("Arial", Font.PLAIN, 18));
+		radioButtonFeminino.setFont(new Font("Arial", Font.PLAIN, 16));
 		radioButtonFeminino.setBounds(425, 201, 149, 23);
 		
 		buttonGroup.add(radioButtonMasculino);
@@ -251,7 +243,6 @@ public class CalculatorMain extends JFrame {
 					
 		JPanel painelResultado = new JPanel();
 		painelResultado.setBorder(new EmptyBorder(5, 5, 5, 5));
-//		painelResultado.setMaximumSize(getMaximumSize());
 		painelResultado.setBackground(Color.DARK_GRAY);
 		painelResultado.setLayout(new GridLayout(5,2));
 		contentPane.add(painelResultado);
@@ -267,24 +258,20 @@ public class CalculatorMain extends JFrame {
 		painelResultado.add(separatorResultado);
 		
 		JLabel resultadoImc = new JLabel("IMC: não calculado");
-		resultadoImc.setFont(new Font("Arial", Font.PLAIN, 18));
+		resultadoImc.setFont(new Font("Arial", Font.PLAIN, 16));
 		resultadoImc.setForeground(Color.WHITE);
 		painelResultado.add(resultadoImc);
 		
 		JLabel resultadoMetabolismo = new JLabel("Metabolismo: não calculado");
-		resultadoMetabolismo.setFont(new Font("Arial", Font.PLAIN, 18));
+		resultadoMetabolismo.setFont(new Font("Arial", Font.PLAIN, 16));
 		resultadoMetabolismo.setForeground(Color.WHITE);
 		painelResultado.add(resultadoMetabolismo);
 		
 		JLabel mensagemErro = new JLabel(" ");
-		mensagemErro.setFont(new Font("Arial", Font.PLAIN, 18));
+		mensagemErro.setFont(new Font("Arial", Font.PLAIN, 16));
 		mensagemErro.setForeground(Color.YELLOW);
 		painelResultado.add(mensagemErro);
-		
-//		JFrame frameHistorico = new JFrame("Histórico");
-//		frameHistorico.setBounds(800, 400, 1350, 450);
-//		frameHistorico.setLocationRelativeTo(null);
-//		
+	
 		JSeparator separatorHistorico = new JSeparator();
 		separatorHistorico.setForeground(Color.LIGHT_GRAY);
 		separatorHistorico.setBackground(Color.LIGHT_GRAY);
@@ -293,49 +280,26 @@ public class CalculatorMain extends JFrame {
 		JPanel painelHistorico = new JPanel();
 		painelHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelHistorico.setBackground(Color.DARK_GRAY);
-//		painelHistorico.setLayout(new BoxLayout(painelHistorico, BoxLayout.PAGE_AXIS));
 		painelHistorico.setLayout(new GridLayout(3,1));
-//		painelHistorico.setBorder(new MatteBorder(6, 0, 6, 0, Color.BLACK));
 		contentPane.add(painelHistorico);
 		
 		JLabel labelHistorico = new JLabel("Histórico");
 		labelHistorico.setForeground(Color.WHITE);
-		labelHistorico.setFont(new Font("Arial", Font.BOLD, 24));
-//		labelHistorico.setBounds(203, 20, 186, 14);
+		labelHistorico.setFont(new Font("Arial", Font.BOLD, 20));
 		painelHistorico.add(labelHistorico);
-//		painelResultado.add(labelHistorico);
 		
-		JPanel painelResultadoHistorico = new JPanel();
-		painelResultadoHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
-		painelResultadoHistorico.setBackground(Color.DARK_GRAY);
-		painelResultadoHistorico.setLayout(new GridLayout(3,1));
-//		painelHistorico.add(painelResultadoHistorico);
-//		painelResultadoHistorico.add(labelHistorico);
-//		painelResultado.add(painelResultadoHistorico);
-		
+		listaHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
+		listaHistorico.setFont(new Font("Arial", Font.BOLD, 13));
+		listaHistorico.setBackground(Color.DARK_GRAY);
+		listaHistorico.setForeground(Color.WHITE);
+		listaHistorico.setPreferredSize(new Dimension(200, 100));
+		painelHistorico.add(listaHistorico);
+	
 		JPanel painelBotoesHistorico = new JPanel();
 		painelBotoesHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelBotoesHistorico.setBackground(Color.DARK_GRAY);
-		painelBotoesHistorico.setLayout(new GridLayout(1,1));
-		painelResultadoHistorico.add(painelBotoesHistorico);
-		
-//		JButton botaoFecharHistorico = new JButton("Fechar");
-//		botaoFecharHistorico.setFont(new Font("Arial", Font.BOLD, 18));
-//		botaoFecharHistorico.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				frameHistorico.dispose();
-//			}
-//		});
-
-//		JList<String> listaHistorico = new JList<String>(lista);
-		listaHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
-		listaHistorico.setFont(new Font("Arial", Font.BOLD, 14));
-		listaHistorico.setPreferredSize(new Dimension(200, 100));
-//		listaHistorico.setSize(getMaximumSize());
-//		painelResultadoHistorico.add(listaHistorico);
-		painelHistorico.add(listaHistorico);
+		painelBotoesHistorico.setLayout(new BorderLayout());
+		painelHistorico.add(painelBotoesHistorico);
 		
 		JFrame confirmationFrame = new JFrame("Confirmação");
 		confirmationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -343,7 +307,7 @@ public class CalculatorMain extends JFrame {
 		confirmationFrame.setLocationRelativeTo(null);
 	
 		JButton botaoLimparHistorico = new JButton("Limpar Histórico");
-		botaoLimparHistorico.setFont(new Font("Arial", Font.BOLD, 18));
+		botaoLimparHistorico.setFont(new Font("Arial", Font.BOLD, 16));
 		botaoLimparHistorico.addActionListener(new ActionListener() {
 			
 			@Override
@@ -359,33 +323,10 @@ public class CalculatorMain extends JFrame {
 				
 			}
 		});
-		painelHistorico.add(botaoLimparHistorico);
-			
-//		JButton botaoHistorico = new JButton("Histórico");
-//		botaoHistorico.setFont(new Font("Arial", Font.BOLD, 18));
-//		botaoHistorico.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//			
-//				frameHistorico.setVisible(true);
-//				
-//				painelHistorico.add(labelHistorico);
-//				painelHistorico.add(painelResultadoHistorico);		
-//				painelResultadoHistorico.add(listaHistorico);
-//				painelResultadoHistorico.add(painelBotoesHistorico);
-//				painelBotoesHistorico.add(botaoLimparHistorico);
-//				painelBotoesHistorico.add(botaoFecharHistorico);
-//				
-//				
-//				frameHistorico.setContentPane(painelHistorico);
-//			}
-//		});
-//		painelResultado.add(botaoHistorico);
-		
+		painelBotoesHistorico.add(botaoLimparHistorico, BorderLayout.WEST);
 		
 		JButton botaoCalcular = new JButton("Calcular");
-		botaoCalcular.setFont(new Font("Arial", Font.BOLD, 18));
+		botaoCalcular.setFont(new Font("Arial", Font.BOLD, 16));
 		botaoCalcular.addActionListener(new ActionListener() {
 				
 			@Override
@@ -465,7 +406,7 @@ public class CalculatorMain extends JFrame {
 		painelBotoes.add(botaoCalcular);
 		
 		JButton botaoLimpar = new JButton("Limpar");
-		botaoLimpar.setFont(new Font("Arial", Font.BOLD, 18));
+		botaoLimpar.setFont(new Font("Arial", Font.BOLD, 16));
 		botaoLimpar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -525,7 +466,7 @@ public class CalculatorMain extends JFrame {
 				System.exit(0);
 			}
 		});
-		botaoFechar.setFont(new Font("Arial", Font.BOLD, 18));
+		botaoFechar.setFont(new Font("Arial", Font.BOLD, 16));
 		painelFinal.add(botaoFechar);
 			
 		JMenuBar menuBar = new JMenuBar();
@@ -546,34 +487,24 @@ public class CalculatorMain extends JFrame {
 			
 				painelNome.setBackground(Color.DARK_GRAY);
 				labelNome.setForeground(Color.WHITE);
-				labelNome.setFont(new Font("Arial", Font.PLAIN, 18));
 				textFieldNome.setBackground(Color.WHITE);
-				textFieldNome.setFont(new Font("Arial", Font.PLAIN, 16));
 				
 				painelPeso.setBackground(Color.DARK_GRAY);
 				labelPeso.setForeground(Color.WHITE);
-				labelPeso.setFont(new Font("Arial", Font.PLAIN, 18));
 				textFieldPeso.setBackground(Color.WHITE);
-				textFieldPeso.setFont(new Font("Arial", Font.PLAIN, 18));
 				
 				painelAltura.setBackground(Color.DARK_GRAY);
 				labelAltura.setForeground(Color.WHITE);
-				labelAltura.setFont(new Font("Arial", Font.PLAIN, 18));
 				textFieldAltura.setBackground(Color.WHITE);
-				textFieldAltura.setFont(new Font("Arial", Font.PLAIN, 18));
 				
 				painelIdade.setBackground(Color.DARK_GRAY);
 				labelIdade.setForeground(Color.WHITE);
-				labelIdade.setFont(new Font("Arial", Font.PLAIN, 18));
 				textFieldIdade.setBackground(Color.WHITE);
-				textFieldIdade.setFont(new Font("Arial", Font.PLAIN, 18));
 				
 				labelCamposObrigatorios.setForeground(Color.YELLOW);
-				labelCamposObrigatorios.setFont(new Font("Arial", Font.BOLD, 13));
 				
 				painelSexo.setBackground(Color.DARK_GRAY);
 				labelSexo.setForeground(Color.WHITE);
-				labelSexo.setFont(new Font("Arial", Font.PLAIN, 18));
 				
 				painelBotoes.setBackground(Color.DARK_GRAY);
 				radioButtonMasculino.setForeground(Color.WHITE);
@@ -582,21 +513,18 @@ public class CalculatorMain extends JFrame {
 				radioButtonFeminino.setBackground(Color.DARK_GRAY);
 				
 				painelResultado.setBackground(Color.DARK_GRAY);
-				labelResultados.setFont(new Font("Arial", Font.BOLD, 20));
 				labelResultados.setForeground(Color.WHITE);
 				separatorResultado.setBackground(Color.DARK_GRAY);
 				separatorResultado.setForeground(Color.DARK_GRAY);
-				resultadoImc.setFont(new Font("Arial", Font.PLAIN, 18));
 				resultadoImc.setForeground(Color.WHITE);
-				resultadoMetabolismo.setFont(new Font("Arial", Font.PLAIN, 18));
 				resultadoMetabolismo.setForeground(Color.WHITE);
 				
-				painelHistorico.setBackground(Color.LIGHT_GRAY);
-				labelHistorico.setForeground(Color.BLACK);
-				painelResultadoHistorico.setBackground(Color.DARK_GRAY);
+				painelHistorico.setBackground(Color.DARK_GRAY);
+				labelHistorico.setForeground(Color.WHITE);
 				painelBotoesHistorico.setBackground(Color.DARK_GRAY);
-				
-				mensagemErro.setFont(new Font("Arial", Font.PLAIN, 18));
+				listaHistorico.setBackground(Color.DARK_GRAY);
+				listaHistorico.setForeground(Color.WHITE);
+
 				mensagemErro.setForeground(Color.YELLOW);
 				
 				separatorFinal.setForeground(Color.LIGHT_GRAY);
@@ -606,16 +534,12 @@ public class CalculatorMain extends JFrame {
 
 
 				labelUniversidade.setForeground(Color.WHITE);
-				labelUniversidade.setFont(new Font("Arial", Font.PLAIN, 12));
 
 				labelDisciplina.setForeground(Color.WHITE);
-				labelDisciplina.setFont(new Font("Arial", Font.PLAIN, 12));
 
 				labelProfessor.setForeground(Color.WHITE);
-				labelProfessor.setFont(new Font("Arial", Font.PLAIN, 12));
 
 				labelAluno.setForeground(Color.WHITE);
-				labelAluno.setFont(new Font("Arial", Font.PLAIN, 12));
 			}
 		});
 		
@@ -628,34 +552,24 @@ public class CalculatorMain extends JFrame {
 		
 				painelNome.setBackground(Color.WHITE);
 				labelNome.setForeground(Color.BLACK);
-				labelNome.setFont(new Font("Arial", Font.PLAIN, 18));
 				textFieldNome.setBackground(Color.WHITE);
-				textFieldNome.setFont(new Font("Arial", Font.PLAIN, 16));
 				
 				painelPeso.setBackground(Color.WHITE);
 				labelPeso.setForeground(Color.BLACK);
-				labelPeso.setFont(new Font("Arial", Font.PLAIN, 18));
 				textFieldPeso.setBackground(Color.WHITE);
-				textFieldPeso.setFont(new Font("Arial", Font.PLAIN, 18));
 				
 				painelAltura.setBackground(Color.WHITE);
 				labelAltura.setForeground(Color.BLACK);
-				labelAltura.setFont(new Font("Arial", Font.PLAIN, 18));
 				textFieldAltura.setBackground(Color.WHITE);
-				textFieldAltura.setFont(new Font("Arial", Font.PLAIN, 18));
 				
 				painelIdade.setBackground(Color.WHITE);
 				labelIdade.setForeground(Color.BLACK);
-				labelIdade.setFont(new Font("Arial", Font.PLAIN, 18));
 				textFieldIdade.setBackground(Color.WHITE);
-				textFieldIdade.setFont(new Font("Arial", Font.PLAIN, 18));
 				
 				labelCamposObrigatorios.setForeground(Color.RED);
-				labelCamposObrigatorios.setFont(new Font("Arial", Font.BOLD, 13));
 				
 				painelSexo.setBackground(Color.WHITE);
 				labelSexo.setForeground(Color.BLACK);
-				labelSexo.setFont(new Font("Arial", Font.PLAIN, 18));
 				
 				painelBotoes.setBackground(Color.WHITE);
 				radioButtonMasculino.setForeground(Color.BLACK);
@@ -664,21 +578,18 @@ public class CalculatorMain extends JFrame {
 				radioButtonFeminino.setBackground(Color.WHITE);
 				
 				painelResultado.setBackground(Color.WHITE);
-				labelResultados.setFont(new Font("Arial", Font.BOLD, 20));
 				labelResultados.setForeground(Color.BLACK);
 				separatorResultado.setBackground(Color.WHITE);
 				separatorResultado.setForeground(Color.WHITE);
-				resultadoImc.setFont(new Font("Arial", Font.PLAIN, 18));
 				resultadoImc.setForeground(Color.BLACK);
-				resultadoMetabolismo.setFont(new Font("Arial", Font.PLAIN, 18));
 				resultadoMetabolismo.setForeground(Color.BLACK);
 				
-				painelHistorico.setBackground(Color.LIGHT_GRAY);
+				painelHistorico.setBackground(Color.WHITE);
 				labelHistorico.setForeground(Color.BLACK);
-				painelResultadoHistorico.setBackground(Color.WHITE);
 				painelBotoesHistorico.setBackground(Color.WHITE);
+				listaHistorico.setBackground(Color.WHITE);
+				listaHistorico.setForeground(Color.BLACK);
 				
-				mensagemErro.setFont(new Font("Arial", Font.PLAIN, 18));
 				mensagemErro.setForeground(Color.RED);
 				
 				separatorFinal.setForeground(Color.LIGHT_GRAY);
@@ -688,16 +599,12 @@ public class CalculatorMain extends JFrame {
 
 
 				labelUniversidade.setForeground(Color.BLACK);
-				labelUniversidade.setFont(new Font("Arial", Font.PLAIN, 12));
 
 				labelDisciplina.setForeground(Color.BLACK);
-				labelDisciplina.setFont(new Font("Arial", Font.PLAIN, 12));
 
 				labelProfessor.setForeground(Color.BLACK);
-				labelProfessor.setFont(new Font("Arial", Font.PLAIN, 12));
 
 				labelAluno.setForeground(Color.BLACK);
-				labelAluno.setFont(new Font("Arial", Font.PLAIN, 12));
 								
 			}
 		});
@@ -804,6 +711,20 @@ public class CalculatorMain extends JFrame {
 			listaHistorico.setListData(lista);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+		}
+	}
+	
+	private static void createHistorico() {
+
+		try {
+			Connection connection = DriverManager.getConnection(jdbcUrl);
+			Statement statement = connection.createStatement();
+			String sqlCreate = "create table historico (nome varchar(15), peso varchar(3), altura varchar(3), idade varchar(3), metabolismo varchar(20), resultadoImc varchar(100))";			
+			statement.executeUpdate(sqlCreate);
+			System.out.println("Conexão criada");
+		} catch (SQLException e) {
+
+			e.printStackTrace();
 		}
 	}
 		
