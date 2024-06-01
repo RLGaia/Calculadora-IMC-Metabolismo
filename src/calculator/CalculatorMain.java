@@ -1,5 +1,6 @@
 package calculator;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -44,6 +45,7 @@ public class CalculatorMain extends JFrame {
 	private JPanel contentPane;
 	private static String jdbcUrl = "jdbc:sqlite:calculadoraImc.db";
 	private static String[] lista = new String[6];
+	private static JList<String> listaHistorico = new JList<String>(lista);
 	
 	/**
 	 * Launch the application.
@@ -53,6 +55,7 @@ public class CalculatorMain extends JFrame {
 			public void run() {
 				try {
 //					mostrarSplash();
+					selectHistorico(lista, listaHistorico);
 					CalculatorMain frame = new CalculatorMain();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -82,7 +85,7 @@ public class CalculatorMain extends JFrame {
 //		}
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(700, 300, 850, 650);
+		setBounds(700, 300, 1050, 950);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(Color.LIGHT_GRAY);
@@ -250,8 +253,7 @@ public class CalculatorMain extends JFrame {
 		painelResultado.setBorder(new EmptyBorder(5, 5, 5, 5));
 //		painelResultado.setMaximumSize(getMaximumSize());
 		painelResultado.setBackground(Color.DARK_GRAY);
-		painelResultado.setLayout(new GridLayout(6,2));
-//		painelResultado.setLayout(new BoxLayout(painelResultado, BoxLayout.PAGE_AXIS));
+		painelResultado.setLayout(new GridLayout(5,2));
 		contentPane.add(painelResultado);
 		
 		JLabel labelResultados = new JLabel("Resultados");
@@ -279,44 +281,61 @@ public class CalculatorMain extends JFrame {
 		mensagemErro.setForeground(Color.YELLOW);
 		painelResultado.add(mensagemErro);
 		
-		JFrame frameHistorico = new JFrame("Histórico");
-		frameHistorico.setBounds(800, 400, 1350, 450);
-		frameHistorico.setLocationRelativeTo(null);
+//		JFrame frameHistorico = new JFrame("Histórico");
+//		frameHistorico.setBounds(800, 400, 1350, 450);
+//		frameHistorico.setLocationRelativeTo(null);
+//		
+		JSeparator separatorHistorico = new JSeparator();
+		separatorHistorico.setForeground(Color.LIGHT_GRAY);
+		separatorHistorico.setBackground(Color.LIGHT_GRAY);
+		contentPane.add(separatorHistorico);
 		
 		JPanel painelHistorico = new JPanel();
 		painelHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
-		painelHistorico.setBackground(Color.LIGHT_GRAY);
-		painelHistorico.setLayout(new BoxLayout(painelHistorico, BoxLayout.PAGE_AXIS));
-	
+		painelHistorico.setBackground(Color.DARK_GRAY);
+//		painelHistorico.setLayout(new BoxLayout(painelHistorico, BoxLayout.PAGE_AXIS));
+		painelHistorico.setLayout(new GridLayout(3,1));
+//		painelHistorico.setBorder(new MatteBorder(6, 0, 6, 0, Color.BLACK));
+		contentPane.add(painelHistorico);
+		
+		JLabel labelHistorico = new JLabel("Histórico");
+		labelHistorico.setForeground(Color.WHITE);
+		labelHistorico.setFont(new Font("Arial", Font.BOLD, 24));
+//		labelHistorico.setBounds(203, 20, 186, 14);
+		painelHistorico.add(labelHistorico);
+//		painelResultado.add(labelHistorico);
+		
 		JPanel painelResultadoHistorico = new JPanel();
 		painelResultadoHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelResultadoHistorico.setBackground(Color.DARK_GRAY);
-		painelResultadoHistorico.setLayout(new GridLayout(6,6));
+		painelResultadoHistorico.setLayout(new GridLayout(3,1));
+//		painelHistorico.add(painelResultadoHistorico);
+//		painelResultadoHistorico.add(labelHistorico);
+//		painelResultado.add(painelResultadoHistorico);
 		
 		JPanel painelBotoesHistorico = new JPanel();
 		painelBotoesHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelBotoesHistorico.setBackground(Color.DARK_GRAY);
-		painelBotoesHistorico.setLayout(new GridLayout(1,2));
+		painelBotoesHistorico.setLayout(new GridLayout(1,1));
+		painelResultadoHistorico.add(painelBotoesHistorico);
 		
-		JLabel labelHistorico = new JLabel("Histórico");
-		labelHistorico.setForeground(Color.BLACK);
-		labelHistorico.setFont(new Font("Arial", Font.BOLD, 24));
-		labelHistorico.setBounds(203, 20, 186, 14);
-	
-		JButton botaoFecharHistorico = new JButton("Fechar");
-		botaoFecharHistorico.setFont(new Font("Arial", Font.BOLD, 18));
-		botaoFecharHistorico.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frameHistorico.dispose();
-			}
-		});
+//		JButton botaoFecharHistorico = new JButton("Fechar");
+//		botaoFecharHistorico.setFont(new Font("Arial", Font.BOLD, 18));
+//		botaoFecharHistorico.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				frameHistorico.dispose();
+//			}
+//		});
 
-		JList<String> listaHistorico = new JList<String>(lista);
+//		JList<String> listaHistorico = new JList<String>(lista);
 		listaHistorico.setBorder(new EmptyBorder(5, 5, 5, 5));
-		listaHistorico.setFont(new Font("Arial", Font.BOLD, 16));
-		listaHistorico.setSize(getMaximumSize());
+		listaHistorico.setFont(new Font("Arial", Font.BOLD, 14));
+		listaHistorico.setPreferredSize(new Dimension(200, 100));
+//		listaHistorico.setSize(getMaximumSize());
+//		painelResultadoHistorico.add(listaHistorico);
+		painelHistorico.add(listaHistorico);
 		
 		JFrame confirmationFrame = new JFrame("Confirmação");
 		confirmationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -342,29 +361,27 @@ public class CalculatorMain extends JFrame {
 		});
 		painelHistorico.add(botaoLimparHistorico);
 			
-		JButton botaoHistorico = new JButton("Histórico");
-		botaoHistorico.setFont(new Font("Arial", Font.BOLD, 18));
-		botaoHistorico.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				selectHistorico(lista);
-				
-				frameHistorico.setVisible(true);
-				
-				painelHistorico.add(labelHistorico);
-				painelHistorico.add(painelResultadoHistorico);		
-				painelResultadoHistorico.add(listaHistorico);
-				painelResultadoHistorico.add(painelBotoesHistorico);
-				painelBotoesHistorico.add(botaoLimparHistorico);
-				painelBotoesHistorico.add(botaoFecharHistorico);
-				
-				
-				frameHistorico.setContentPane(painelHistorico);
-			}
-		});
-		painelResultado.add(botaoHistorico);
+//		JButton botaoHistorico = new JButton("Histórico");
+//		botaoHistorico.setFont(new Font("Arial", Font.BOLD, 18));
+//		botaoHistorico.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//			
+//				frameHistorico.setVisible(true);
+//				
+//				painelHistorico.add(labelHistorico);
+//				painelHistorico.add(painelResultadoHistorico);		
+//				painelResultadoHistorico.add(listaHistorico);
+//				painelResultadoHistorico.add(painelBotoesHistorico);
+//				painelBotoesHistorico.add(botaoLimparHistorico);
+//				painelBotoesHistorico.add(botaoFecharHistorico);
+//				
+//				
+//				frameHistorico.setContentPane(painelHistorico);
+//			}
+//		});
+//		painelResultado.add(botaoHistorico);
 		
 		
 		JButton botaoCalcular = new JButton("Calcular");
@@ -418,7 +435,7 @@ public class CalculatorMain extends JFrame {
 
 							statement.executeUpdate("insert into historico values ('" + textFieldNome.getText() + "', '" + textFieldPeso.getText() + "',"
 									+ " '"+ textFieldAltura.getText() + "', '" + textFieldIdade.getText() + "', '" + metabolismoResposta + "', '"+ imcResposta + "')");
-							selectHistorico(lista);
+							selectHistorico(lista, listaHistorico);
 						}
 						else if (radioButtonFeminino.isSelected()) {
 							metabolismoResposta = String.format("%.2f", calcularMetabolismoBasalFeminino(peso, altura, idade));
@@ -426,7 +443,7 @@ public class CalculatorMain extends JFrame {
 							
 							statement.executeUpdate("insert into historico values ('" + textFieldNome.getText() + "', '" + textFieldPeso.getText() + "',"
 									+ " '"+ textFieldAltura.getText() + "', '" + textFieldIdade.getText() + "', '" + metabolismoResposta + "', '"+ imcResposta + "')");
-							selectHistorico(lista);
+							selectHistorico(lista, listaHistorico);
 						}										
 					}
 					
@@ -744,7 +761,7 @@ public class CalculatorMain extends JFrame {
 		return metabolismo;
 	}
 	
-	private static void selectHistorico(String[] lista) {
+	private static void selectHistorico(String[] lista, JList listaHistorico) {
 		try {
 			Connection connection = DriverManager.getConnection(jdbcUrl);
 			Statement statement = connection.createStatement();
@@ -765,6 +782,8 @@ public class CalculatorMain extends JFrame {
 				
 				System.out.println("result.getRow(): " + result.getRow());
 				lista[result.getRow()] = String.format("%d |Nome: %s |Peso: %s kg |Altura: %s cm |Idade: %s anos |Metabolismo: %s |IMC: %s%n", id, nome, peso, altura, idade, metabolismo, resultadoImc);
+				listaHistorico.setListData(lista);
+			
 				
 			}
 		} catch (SQLException e2) {
