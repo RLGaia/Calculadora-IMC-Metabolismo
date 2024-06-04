@@ -54,7 +54,6 @@ public class CalculatorMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-//					mostrarSplash();
 					selectHistorico(lista, listaHistorico);
 					CalculatorMain frame = new CalculatorMain();
 					frame.setVisible(true);
@@ -619,22 +618,6 @@ public class CalculatorMain extends JFrame {
 		setLocationRelativeTo(null);
 		setContentPane(contentPane);
 	}
-
-	private static void mostrarSplash() {
-		// Criando a tela de carregamento
-		JWindow window = new JWindow();
-		ImageIcon imageIcon = new ImageIcon("https://th.bing.com/th/id/OIG1.tlt2y26ulvKjSorWphm_?pid=ImgGn");
-		JLabel label = new JLabel(imageIcon);
-		window.getContentPane().add(label);
-		window.setBounds(500, 150, imageIcon.getIconWidth(), imageIcon.getIconHeight());
-		window.setVisible(true);
-		try {
-		Thread.sleep(5000); // Mantém a tela de carregamento visível por 5 segundos
-		} catch (InterruptedException e) {
-		e.printStackTrace();
-		}
-		window.dispose(); // Fecha a tela de carregamento
-		}
 	
 	private static double calcularImc(double peso, double altura) {
 		double imc = peso / Math.pow(altura/100, 2);
@@ -644,17 +627,17 @@ public class CalculatorMain extends JFrame {
 	private static String resultadoImc(double imc) {
 		String imcFormatado = String.format("%.2f", imc);
 		if(imc < 18.5) {
-			return "IMC: " + imcFormatado + " - Abaixo do peso: IMC menor que 18,5";
+			return imcFormatado + " - Abaixo do peso: IMC menor que 18,5";
 		} else if (imc >= 18.5 && imc <= 24.9) {
-			return "IMC: " + imcFormatado + " - Peso normal: IMC entre 18,5 e 24,9";
+			return imcFormatado + " - Peso normal: IMC entre 18,5 e 24,9";
 		} else if (imc > 25 && imc <= 29.9) {
-			return "IMC: " + imcFormatado + " - Obesidade grau I: IMC entre 30 e 34,9";
+			return imcFormatado + " - Obesidade grau I: IMC entre 30 e 34,9";
 		} else if (imc > 30 && imc <= 34.9) {
-			return "IMC: " + imcFormatado + " - Obesidade grau I: IMC entre 30 e 34,9";		
+			return imcFormatado + " - Obesidade grau I: IMC entre 30 e 34,9";		
 		} else if (imc > 35 && imc <= 39.9) {
-			return "IMC: " + imcFormatado + " - Obesidade grau II (severa): IMC entre 35 e 39,9";
+			return imcFormatado + " - Obesidade grau II (severa): IMC entre 35 e 39,9";
 		} else {
-			return "IMC: " + imcFormatado + " - Obesidade grau III (mórbida): IMC maior que 40";
+			return imcFormatado + " - Obesidade grau III (mórbida): IMC maior que 40";
 		}
 	}
 	
@@ -685,10 +668,10 @@ public class CalculatorMain extends JFrame {
 				String idade = result.getString("idade");
 				String metabolismo = result.getString("metabolismo");
 				String resultadoImc = result.getString("resultadoImc");
-				System.out.printf("%d |Nome: %s |Peso: %s kg |Altura: %s cm |Idade: %s anos |Metabolismo: %s |%s%n", id, nome, peso, altura, idade, metabolismo, resultadoImc);
+				System.out.printf("%d | Nome: %s |Peso: %s kg | Altura: %s cm | Idade: %s anos | Metabolismo: %s | IMC: %s%n", id, nome, peso, altura, idade, metabolismo, resultadoImc);
 				
 				System.out.println("result.getRow(): " + result.getRow());
-				lista[result.getRow()] = String.format("%d |Nome: %s |Peso: %s kg |Altura: %s cm |Idade: %s anos |Metabolismo: %s |IMC: %s%n", id, nome, peso, altura, idade, metabolismo, resultadoImc);
+				lista[result.getRow()] = String.format("%d | Nome: %s | Peso: %s kg | Altura: %s cm | Idade: %s anos | Metabolismo: %s | IMC: %s%n", id, nome, peso, altura, idade, metabolismo, resultadoImc);
 				listaHistorico.setListData(lista);
 			
 				
